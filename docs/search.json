@@ -2,16 +2,37 @@
   {
     "objectID": "posts/welcome/index.html",
     "href": "posts/welcome/index.html",
-    "title": "Welcome To My Blog",
+    "title": "Vinculando Rstudio con Github y Git",
     "section": "",
-    "text": "This is the first post in a Quarto blog. Welcome!\n\nSince this post doesn’t specify an explicit image, the first image in the post will be used in the listing page of posts."
+    "text": "Para vincular Rstudio con Github mediante Git se debe:"
+  },
+  {
+    "objectID": "posts/welcome/index.html#instalar-git-fa-brands-git-alt-en-tu-computador",
+    "href": "posts/welcome/index.html#instalar-git-fa-brands-git-alt-en-tu-computador",
+    "title": "Vinculando Rstudio con Github y Git",
+    "section": "1. Instalar git  en tu computador",
+    "text": "1. Instalar git  en tu computador\nInstalas Git en el siguiente enlace (⏬ aquí). Por default acepta todas las configuraciones.\n\n\n\nPagína para descargar git"
+  },
+  {
+    "objectID": "posts/welcome/index.html#configurar-git-en-tu-rstudio",
+    "href": "posts/welcome/index.html#configurar-git-en-tu-rstudio",
+    "title": "Vinculando Rstudio con Github y Git",
+    "section": "2. Configurar git en tu Rstudio",
+    "text": "2. Configurar git en tu Rstudio\nUna vez instalado llamas a library (usethis) y en la terminal añades lo siguiente\n```         \nlibrary (usethis)\nuse_git_config(user.name=\"name en gihub\", user.email=\"correo de github\")\n```\nPuedes ayudarte con este video guía 🎥(https://www.youtube.com/watch?v=QLFc9gw_Hfs)"
+  },
+  {
+    "objectID": "posts/welcome/index.html#vincular-un-proyecto-existente-a-github",
+    "href": "posts/welcome/index.html#vincular-un-proyecto-existente-a-github",
+    "title": "Vinculando Rstudio con Github y Git",
+    "section": "3. Vincular un proyecto existente a Github",
+    "text": "3. Vincular un proyecto existente a Github\nPara subir un proyecto que ya hayas creado en Rstudio a Github puedes guiarte del siguiente en enlace (⬇️Video). Para trabajar con un proyecto existente en Github y llevarlo a Rstudio puedes guiarte con este tutorial (⏬Video)."
   },
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Blog apuntes",
+    "title": "Blog 🌺",
     "section": "",
-    "text": "Post With Code\n\n\n\n\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\n\n\n\n\nApr 21, 2024\n\n\nHarlow Malloc\n\n\n\n\n\n\n  \n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\n\n\nApr 18, 2024\n\n\nTristan O’Malley\n\n\n\n\n\n\nNo matching items"
+    "text": "Vinculando Rstudio con Github y Git\n\n\n\n\n\n\n\nGithub\n\n\nGit\n\n\n\n\nVincular Rstudio con Github mediante Git\n\n\n\n\n\n\nDaniela Ospino\n\n\n\n\n\n\n  \n\n\n\n\nPost With Code\n\n\n\n\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\n\n\n\n\nApr 21, 2024\n\n\nHarlow Malloc\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "about.html",

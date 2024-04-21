@@ -7,7 +7,7 @@ description: "Vincular Rstudio con Github mediante Git"
 
 Para vincular Rstudio con Github mediante Git se debe:
 
-## 1. Instalar git {{< fa brands git >}} en tu computador
+## 1. Instalar git {{< fa brands git-alt >}} en tu computador
 
 Instalas **Git** en el siguiente enlace (⏬ [aquí](https://git-scm.com/book/es/v2/Inicio---Sobre-el-Control-de-Versiones-Instalaci%C3%B3n-de-Git)). Por default acepta todas las configuraciones.
 
