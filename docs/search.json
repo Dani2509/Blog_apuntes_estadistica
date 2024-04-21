@@ -18,7 +18,7 @@
     "href": "posts/vincular_git/index.html#configurar-git-en-tu-rstudio",
     "title": "Vinculando Rstudio con Github y Git",
     "section": "2. Configurar git en tu Rstudio",
-    "text": "2. Configurar git en tu Rstudio\nUna vez instalado llamas a library (usethis) y en la terminal añades lo siguiente\n```         \nlibrary (usethis)\nuse_git_config(user.name=\"name en gihub\", user.email=\"correo de github\")\n```\nPuedes ayudarte con este video guía 🎥(https://www.youtube.com/watch?v=QLFc9gw_Hfs)"
+    "text": "2. Configurar git en tu Rstudio\nUna vez instalado llamas a ibrary (usethis) y en la terminal añades lo siguiente\n\n\nTerminal\n\nlibrary (usethis)\nuse_git_config(user.name=\"name en gihub\", user.email=\"correo de github\")\n\nPuedes ayudarte con este video guía 🎥(https://www.youtube.com/watch?v=QLFc9gw_Hfs)"
   },
   {
     "objectID": "posts/vincular_git/index.html#vincular-un-proyecto-existente-a-github",
