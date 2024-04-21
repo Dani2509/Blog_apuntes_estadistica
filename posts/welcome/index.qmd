@@ -1,12 +1,31 @@
 ---
-title: "Welcome To My Blog"
-author: "Tristan O'Malley"
-date: "2024-04-18"
-categories: [news]
+title: "Vinculando Rstudio con Github y Git"
+author: "Daniela Ospino"
+categories: [Github, Git]
+description: "Vincular Rstudio con Github mediante Git"
 ---
 
-This is the first post in a Quarto blog. Welcome!
+Para vincular Rstudio con Github mediante Git se debe:
 
-![](thumbnail.jpg)
+## 1. Instalar git {{< fa brands git >}} en tu computador
 
-Since this post doesn't specify an explicit `image`, the first image in the post will be used in the listing page of posts.
+Instalas **Git** en el siguiente enlace (⏬ [aquí](https://git-scm.com/book/es/v2/Inicio---Sobre-el-Control-de-Versiones-Instalaci%C3%B3n-de-Git)). Por default acepta todas las configuraciones.
+
+![Pagína para descargar git](/posts/post-with-code/interfaz_git.jpg){fig-align="center"}
+
+## 2. Configurar git en tu Rstudio
+
+Una vez instalado llamas a l`ibrary (usethis)` y en la terminal añades lo siguiente
+
+````         
+```         
+library (usethis)
+use_git_config(user.name="name en gihub", user.email="correo de github")
+```
+````
+
+Puedes ayudarte con este video guía 🎥(<https://www.youtube.com/watch?v=QLFc9gw_Hfs>)
+
+## 3. Vincular un proyecto existente a Github
+
+Para subir un proyecto que ya hayas creado en Rstudio a Github puedes guiarte del siguiente en enlace (⬇️[Video](https://www.youtube.com/watch?v=Q5ENEaxXbFo)). Para trabajar con un proyecto existente en Github y llevarlo a Rstudio puedes guiarte con este tutorial (⏬[Video](https://www.youtube.com/watch?v=bUoN85QvC10&t=381s)).
