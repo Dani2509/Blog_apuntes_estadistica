@@ -1,28 +1,28 @@
 [
   {
-    "objectID": "posts/welcome/index.html",
-    "href": "posts/welcome/index.html",
+    "objectID": "posts/vincular_git/index.html",
+    "href": "posts/vincular_git/index.html",
     "title": "Vinculando Rstudio con Github y Git",
     "section": "",
     "text": "Para vincular Rstudio con Github mediante Git se debe:"
   },
   {
-    "objectID": "posts/welcome/index.html#instalar-git-fa-brands-git-alt-en-tu-computador",
-    "href": "posts/welcome/index.html#instalar-git-fa-brands-git-alt-en-tu-computador",
+    "objectID": "posts/vincular_git/index.html#instalar-git-fa-brands-git-alt-en-tu-computador",
+    "href": "posts/vincular_git/index.html#instalar-git-fa-brands-git-alt-en-tu-computador",
     "title": "Vinculando Rstudio con Github y Git",
     "section": "1. Instalar git  en tu computador",
-    "text": "1. Instalar git  en tu computador\nInstalas Git en el siguiente enlace (⏬ aquí). Por default acepta todas las configuraciones.\n\n\n\nPagína para descargar git"
+    "text": "1. Instalar git  en tu computador\nInstalas Git en el siguiente enlace (⏬ aquí). Por default acepta todas las configuraciones.\n\n\n\nInterfaz de git"
   },
   {
-    "objectID": "posts/welcome/index.html#configurar-git-en-tu-rstudio",
-    "href": "posts/welcome/index.html#configurar-git-en-tu-rstudio",
+    "objectID": "posts/vincular_git/index.html#configurar-git-en-tu-rstudio",
+    "href": "posts/vincular_git/index.html#configurar-git-en-tu-rstudio",
     "title": "Vinculando Rstudio con Github y Git",
     "section": "2. Configurar git en tu Rstudio",
     "text": "2. Configurar git en tu Rstudio\nUna vez instalado llamas a library (usethis) y en la terminal añades lo siguiente\n```         \nlibrary (usethis)\nuse_git_config(user.name=\"name en gihub\", user.email=\"correo de github\")\n```\nPuedes ayudarte con este video guía 🎥(https://www.youtube.com/watch?v=QLFc9gw_Hfs)"
   },
   {
-    "objectID": "posts/welcome/index.html#vincular-un-proyecto-existente-a-github",
-    "href": "posts/welcome/index.html#vincular-un-proyecto-existente-a-github",
+    "objectID": "posts/vincular_git/index.html#vincular-un-proyecto-existente-a-github",
+    "href": "posts/vincular_git/index.html#vincular-un-proyecto-existente-a-github",
     "title": "Vinculando Rstudio con Github y Git",
     "section": "3. Vincular un proyecto existente a Github",
     "text": "3. Vincular un proyecto existente a Github\nPara subir un proyecto que ya hayas creado en Rstudio a Github puedes guiarte del siguiente en enlace (⬇️Video). Para trabajar con un proyecto existente en Github y llevarlo a Rstudio puedes guiarte con este tutorial (⏬Video)."
@@ -42,8 +42,8 @@
     "text": "About this blog"
   },
   {
-    "objectID": "posts/post-with-code/index.html",
-    "href": "posts/post-with-code/index.html",
+    "objectID": "posts/post2/index.html",
+    "href": "posts/post2/index.html",
     "title": "Post With Code",
     "section": "",
     "text": "This is a post with executable code.\n\n1 + 1\n\n[1] 2"
