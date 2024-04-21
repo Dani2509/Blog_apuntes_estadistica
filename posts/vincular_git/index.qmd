@@ -15,14 +15,12 @@ Instalas **Git** en el siguiente enlace (⏬ [aquí](https://git-scm.com/book/es
 
 ## 2. Configurar git en tu Rstudio
 
-Una vez instalado llamas a l`ibrary (usethis)` y en la terminal añades lo siguiente
+Una vez instalado llamas a `ibrary (usethis)` y en la terminal añades lo siguiente
 
-````         
-```         
+``` {.bash filename="Terminal"}        
 library (usethis)
 use_git_config(user.name="name en gihub", user.email="correo de github")
 ```
-````
 
 Puedes ayudarte con este video guía 🎥(<https://www.youtube.com/watch?v=QLFc9gw_Hfs>)
 
