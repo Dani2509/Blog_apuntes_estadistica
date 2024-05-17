@@ -3,8 +3,9 @@ project:
   output-dir: docs
 
 website:
-  title: "Blog de apuntes"
+  title: "{{< fa feather >}} Blog de apuntes"
   navbar:
+    background: "#e9edc9"
     right:
       - icon: github
         href: https://github.com/Dani2509
@@ -12,7 +13,7 @@ website:
 format:
   html:
     theme: minty
-    css: styles.css
+    css: style.scss
     toc: true
 
 editor: visual
