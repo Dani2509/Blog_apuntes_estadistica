@@ -1,0 +1,27 @@
+---
+title: "Limpieza y manipulación de base de datos"
+author: "Daniela O"
+categories: [data, code, Tidyverse]
+image: "limpiar-db.png"
+execute: 
+  warning: false
+  message: false
+---
+
+### Cambiar nombre de una fila en una base de datos
+
+```{r}
+# cargando base de datos de ejemplo
+library(tidyverse)
+df1<- read.csv("fruits.txt", sep="")
+df1
+```
+
+```{r}
+library(dplyr)
+library(car)
+res <- mutate(df1, Fruit= recode(Fruit, "'apple'='lemon';'orange'='grape'")) #<1>
+res
+```
+
+1.  `recode` hace parte de la `library(car)`
