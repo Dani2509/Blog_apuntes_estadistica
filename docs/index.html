@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Blog de apuntes - Blog 🌺</title>
+<title> Blog de apuntes - Blog 🌺</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -41,6 +41,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
+<link href="site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -78,9 +80,9 @@ ul.task-list li input[type="checkbox"] {
     }
 
     const options = {
-      valueNames: ['listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      valueNames: ['listing-title','listing-author','listing-subtitle','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
       
-      searchColumns: ["listing-title","listing-author","listing-image","listing-description","listing-categories"],
+      searchColumns: ["listing-title","listing-author","listing-subtitle","listing-image","listing-description","listing-categories"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
@@ -128,7 +130,7 @@ window.Quarto = {
 };
 </script>
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="style.scss">
 </head>
 
 <body class="nav-fixed">
@@ -139,7 +141,7 @@ window.Quarto = {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">Blog de apuntes</span>
+    <span class="navbar-title"><i class="fa-solid fa-feather" aria-label="feather"></i> Blog de apuntes</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -195,7 +197,7 @@ window.Quarto = {
 
 <div class="quarto-listing quarto-listing-container-default" id="listing-listing">
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="data,code,Tidyverse" data-listing-file-modified-sort="1715104326664" data-listing-reading-time-sort="1" data-listing-word-count-sort="22">
+<div class="quarto-post image-right" data-index="0" data-categories="data,code,Tidyverse" data-listing-file-modified-sort="1715964376456" data-listing-reading-time-sort="1" data-listing-word-count-sort="22">
 <div class="thumbnail">
 <p><a href="./posts/Limpieza_manipulacion_data/index.html" class="no-external"></a></p><a href="./posts/Limpieza_manipulacion_data/index.html" class="no-external">
 <p><img src="./posts/Limpieza_manipulacion_data/limpiar-db.png" class="thumbnail-image"></p>
@@ -206,7 +208,7 @@ window.Quarto = {
 <a href="./posts/Limpieza_manipulacion_data/index.html" class="no-external">Limpieza y manipulación de base de datos</a>
 </h3>
 <div class="listing-subtitle">
-<a href="./posts/Limpieza_manipulacion_data/index.html" class="no-external"></a>
+<a href="./posts/Limpieza_manipulacion_data/index.html" class="no-external">limpiando y manipulando datos con tidyverse y otras</a>
 </div>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('data'); return false;">
