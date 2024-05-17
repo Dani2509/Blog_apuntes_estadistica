@@ -12,8 +12,9 @@ website:
 
 format:
   html:
-    theme: minty
-    css: style.scss
+    theme: 
+      - minty
+      - style.scss
     toc: true
 
 editor: visual
