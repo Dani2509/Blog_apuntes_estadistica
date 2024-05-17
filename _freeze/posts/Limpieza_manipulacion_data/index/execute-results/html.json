@@ -1,8 +1,8 @@
 {
-  "hash": "f05cdd0132489fd22386a0468ded27b5",
+  "hash": "e7057b22d461581912f07f66bc42f8b4",
   "result": {
     "engine": "knitr",
-    "markdown": "---\ntitle: \"Limpieza y manipulación de base de datos\"\nsubtitle: \"limpiando y manipulando datos con tidyverse y otras\"\nauthor: \"Daniela Ospino\"\ncategories: [data, code, Tidyverse]\nimage: \"limpiar-db.png\"\nexecute: \n  warning: false\n  message: false\n---\n\n\n### Cambiar nombre de una fila en una base de datos\n\n\n::: {.cell}\n\n```{.r .cell-code}\n# cargando base de datos de ejemplo\nlibrary(tidyverse)\ndf1<- read.csv(\"fruits.txt\", sep=\"\")\ndf1\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\n   Fruit Cost\n1  apple    6\n2  apple    7\n3 orange    3\n4 orange    4\n```\n\n\n:::\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(dplyr)\nlibrary(car)\nres <- mutate(df1, Fruit= recode(Fruit, \"'apple'='lemon';'orange'='grape'\")) #<1>\nres\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\n  Fruit Cost\n1 lemon    6\n2 lemon    7\n3 grape    3\n4 grape    4\n```\n\n\n:::\n:::\n\n\n1.  `recode` hace parte de la `library(car)`\n",
+    "markdown": "---\ntitle: \"Limpieza y manipulación de base de datos\"\ndescription: \"limpiando y manipulando datos con tidyverse y otras\"\nauthor: \"Daniela Ospino\"\ncategories: [data, code, Tidyverse]\nimage: \"limpiar-db.png\"\nexecute: \n  warning: false\n  message: false\n---\n\n\n### Cambiar nombre de una fila en una base de datos\n\n\n::: {.cell}\n\n```{.r .cell-code}\n# cargando base de datos de ejemplo\nlibrary(tidyverse)\ndf1<- read.csv(\"fruits.txt\", sep=\"\")\ndf1\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\n   Fruit Cost\n1  apple    6\n2  apple    7\n3 orange    3\n4 orange    4\n```\n\n\n:::\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(dplyr)\nlibrary(car)\nres <- mutate(df1, Fruit= recode(Fruit, \"'apple'='lemon';'orange'='grape'\")) #<1>\nres\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\n  Fruit Cost\n1 lemon    6\n2 lemon    7\n3 grape    3\n4 grape    4\n```\n\n\n:::\n:::\n\n\n1.  `recode` hace parte de la `library(car)`\n",
     "supporting": [
       "index_files"
     ],
