@@ -82,7 +82,7 @@ ul.task-list li input[type="checkbox"] {
     const options = {
       valueNames: ['listing-image','listing-date','listing-title','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
       
-      searchColumns: ["listing-title","listing-author","listing-image","listing-description","listing-categories"],
+      searchColumns: ["listing-title","listing-author","listing-subtitle","listing-image","listing-description","listing-categories"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
@@ -207,10 +207,26 @@ window.Quarto = {
 <a href="./posts/Limpieza_manipulacion_data/index.html" class="no-external">Limpieza y manipulación de base de datos</a>
 </h3>
 <div class="listing-subtitle">
-<a href="./posts/Limpieza_manipulacion_data/index.html" class="no-external"></a>
+<a href="./posts/Limpieza_manipulacion_data/index.html" class="no-external">limpiando y manipulando datos con tidyverse y otras</a>
 </div>
 <div class="listing-description">
-<a href="./posts/Limpieza_manipulacion_data/index.html" class="no-external">limpiando y manipulando datos con tidyverse y otras</a>
+<a href="./posts/Limpieza_manipulacion_data/index.html" class="no-external">
+
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><span class="co"># cargando base de datos de ejemplo</span></span>
+<span id="cb1-2"><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-3">df1<span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"fruits.txt"</span>, <span class="at">sep=</span><span class="st">""</span>)</span>
+<span id="cb1-4">df1</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Fruit Cost
+1  apple    6
+2  apple    7
+3 orange    3
+4 orange    4</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="annotated-cell-2"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-2-1"><span class="fu">l…</span></span><span id="annotated-cell-2-2"><span class="fu"></span></span><span id="annotated-cell-2-3" class="code-annotation-target"><span class="ot"></span><span class="fu"></span><span class="at"></span><span class="fu"></span><span class="st"></span></span><span id="annotated-cell-2-4"></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><div class="cell-annotation"><dl class="code-annotation-container-grid"><dt data-target-cell="annotated-cell-2" data-target-annotation="1"></dt><dd><span data-code-cell="annotated-cell-2" data-code-lines="3" data-code-annotation="1"><code></code><code></code></span></dd></dl></div><div class="cell-output cell-output-stdout"><pre><code></code></pre></div></div></a>
 </div>
 </div>
 <div class="metadata">
@@ -221,7 +237,7 @@ window.Quarto = {
 <div class="quarto-post image-right" data-index="1" data-categories="Github,Git" data-listing-file-modified-sort="1713739287817" data-listing-reading-time-sort="1" data-listing-word-count-sort="107">
 <div class="thumbnail">
 <p><a href="./posts/vincular_git/index.html" class="no-external"></a></p><a href="./posts/vincular_git/index.html" class="no-external">
-<!-- img(9CEB782EFEE6)[progressive=false, height=]:posts/vincular_git/index.html -->
+<p class="card-img-top"><img src="posts\vincular_git\interfaz_git.jpg"  class="thumbnail-image card-img"/></p>
 </a><p><a href="./posts/vincular_git/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
