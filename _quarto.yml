@@ -5,7 +5,8 @@ project:
 website:
   title: "{{< fa feather >}} Blog de apuntes"
   navbar:
-    background: "#e9edc9"
+    background: "#f7f7f7"
+    foreground: "#252D5C"
     right:
       - icon: github
         href: https://github.com/Dani2509
