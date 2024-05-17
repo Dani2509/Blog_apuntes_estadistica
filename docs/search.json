@@ -7,8 +7,8 @@
     "text": "Para vincular Rstudio con Github mediante Git se debe:"
   },
   {
-    "objectID": "posts/vincular_git/index.html#instalar-git-fa-brands-git-alt-en-tu-computador",
-    "href": "posts/vincular_git/index.html#instalar-git-fa-brands-git-alt-en-tu-computador",
+    "objectID": "posts/vincular_git/index.html#instalar-git-en-tu-computador",
+    "href": "posts/vincular_git/index.html#instalar-git-en-tu-computador",
     "title": "Vinculando Rstudio con Github y Git",
     "section": "1. Instalar git  en tu computador",
     "text": "1. Instalar git  en tu computador\nInstalas Git en el siguiente enlace (⏬ aquí). Por default acepta todas las configuraciones.\n\n\n\nInterfaz de git"
@@ -32,7 +32,7 @@
     "href": "index.html",
     "title": "Blog 🌺",
     "section": "",
-    "text": "Vinculando Rstudio con Github y Git\n\n\n\n\n\n\n\nGithub\n\n\nGit\n\n\n\n\nVincular Rstudio con Github mediante Git\n\n\n\n\n\n\nDaniela Ospino\n\n\n\n\n\n\n  \n\n\n\n\nPost With Code\n\n\n\n\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\n\n\n\n\nApr 21, 2024\n\n\nHarlow Malloc\n\n\n\n\n\n\nNo matching items"
+    "text": "Limpieza y manipulación de base de datos\n\n\n\n\n\n\ndata\n\n\ncode\n\n\nTidyverse\n\n\n\n\n\n\n\n\n\nDaniela O\n\n\n\n\n\n\n\n\n\n\n\n\nVinculando Rstudio con Github y Git\n\n\n\n\n\n\nGithub\n\n\nGit\n\n\n\nVincular Rstudio con Github mediante Git\n\n\n\n\n\nDaniela Ospino\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "about.html",
@@ -42,10 +42,10 @@
     "text": "About this blog"
   },
   {
-    "objectID": "posts/post2/index.html",
-    "href": "posts/post2/index.html",
-    "title": "Post With Code",
+    "objectID": "posts/Limpieza_manipulacion_data/index.html",
+    "href": "posts/Limpieza_manipulacion_data/index.html",
+    "title": "Limpieza y manipulación de base de datos",
     "section": "",
-    "text": "This is a post with executable code.\n\n1 + 1\n\n[1] 2"
+    "text": "Cambiar nombre de una fila en una base de datos\n\n# cargando base de datos de ejemplo\nlibrary(tidyverse)\ndf1&lt;- read.csv(\"fruits.txt\", sep=\"\")\ndf1\n\n   Fruit Cost\n1  apple    6\n2  apple    7\n3 orange    3\n4 orange    4\n\n\n\nlibrary(dplyr)\nlibrary(car)\n1res &lt;- mutate(df1, Fruit= recode(Fruit, \"'apple'='lemon';'orange'='grape'\"))\nres\n\n\n1\n\nrecode hace parte de la library(car)\n\n\n\n\n  Fruit Cost\n1 lemon    6\n2 lemon    7\n3 grape    3\n4 grape    4"
   }
 ]
