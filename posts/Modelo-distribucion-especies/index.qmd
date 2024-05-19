@@ -1,0 +1,52 @@
+---
+title: "Modelos de Distribución de Especies (SDM) en R"
+author: "Daniela Ospino"
+categories: [Github, Git]
+description: "Notas del curso de Udemy por Fabio Castro"
+---
+
+## ¿Qué son los SDM?
+
+Surgen en respuesta a la necesidad de conocer el nicho ecológico de las especies y así por estimar el radio de acción de estas en función de sus requerimientos.
+
+Dentro de estos modelos se encuentras
+
+-   GLM, GAM (Guisan, Edwards y Hastle, 2002)
+
+-   Redes neuronales (Manel y Ormerod, 1999)
+
+-   Bioclim (Rusby, 1991)
+
+-   Domain (Carpenter y Winter, 1993)
+
+-   ENFA (ecological niche factor analysis)
+
+-   Maxent (Phillips y Schapire, 2006)
+
+-   Random forest
+
+## ¿Cómo se evalúa un modelo de distribución de especies?
+
+Para evaluar la calidad de los modelos estadisticos, los mas usados son:
+
+-   ROC (Receiver operating characteristics)
+
+-   AUC (Area under the curve)
+
+Acompañados de métodos como: Validación cruzada, validación cruzada generalizada, Bootstrapping, Kappa de Cohen, Análisis de correlación lineal, entre otras.
+
+La curva ROC es una representación gráfica de un modelo para posibles puntos de corte, y necesita que los datos que se evalúan sean de presencia o pseudoausencia (o solo ausencia en su defecto).
+
+### Máxima entropía
+
+método para hacer predicciones a partir de información incompleta. El propósito es estimar una distribución de probabilidad y así encontrar la distribución sujeta a un conjunto de restricciones que representan la infomación incompleta acerca de la distribución en estudio.
+
+Su objetivo es estimarla idoneidad de la especie (Hutchinson, 1957).
+
+### Datos necesarios para trabajar con SDM
+
+-   presencia de la especies
+
+-   Clima / Variables importantes para la especie
+
+-   Pseudo-ausencias *(simulación de observaciones de ausencia)*

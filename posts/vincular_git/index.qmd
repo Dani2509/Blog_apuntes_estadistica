@@ -17,7 +17,7 @@ Instalas **Git** en el siguiente enlace (⏬ [aquí](https://git-scm.com/book/es
 
 Una vez instalado llamas a `ibrary (usethis)` y en la terminal añades lo siguiente
 
-```{.bash filename="Terminal"}        
+``` {.bash filename="Terminal"}
 library (usethis)
 use_git_config(user.name="name en gihub", user.email="correo de github")
 ```
