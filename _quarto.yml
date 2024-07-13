@@ -19,4 +19,9 @@ format:
     toc: true
 
 editor: visual
+execute: 
+  freeze: auto
+  warning: false
+  message: false
+
 
