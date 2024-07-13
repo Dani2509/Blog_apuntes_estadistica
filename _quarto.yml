@@ -18,7 +18,6 @@ format:
       - style.scss
     toc: true
 
-editor: visual
 execute: 
   freeze: auto
   warning: false
