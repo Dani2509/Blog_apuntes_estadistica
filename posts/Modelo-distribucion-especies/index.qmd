@@ -30,7 +30,7 @@ Dentro de estos modelos se encuentras
 
 ## ¿Cómo se evalúa un modelo de distribución de especies?
 
-Para evaluar la calidad de los modelos estadisticos, los mas usados son:
+Para evaluar la calidad de los modelos estadísticos, los mas usados son:
 
 -   ROC (Receiver operating characteristics)
 
