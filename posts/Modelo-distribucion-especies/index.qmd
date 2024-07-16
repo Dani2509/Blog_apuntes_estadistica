@@ -4,6 +4,8 @@ description: "Notas del curso de Udemy por Fabio Castro"
 author: "Daniela Ospino"
 categories: [SDM, Modelacion]
 image: "concept.jpg"
+editor_options: 
+  chunk_output_type: console
 ---
 
 ## ¿Qué son los SDM?
