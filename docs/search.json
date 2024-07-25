@@ -1,12 +1,5 @@
 [
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Blog",
-    "section": "",
-    "text": "Limpieza y manipulación de base de datos\n\n\nlimpiando y manipulando datos con tidyverse y otras\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nVinculando Rstudio con Github y Git\n\n\n\n\n\nVincular Rstudio con Github mediante Git\n\n\n\n\n\n\n\n\n\nNo matching items"
-  },
-  {
     "objectID": "posts/vincular_git/index.html",
     "href": "posts/vincular_git/index.html",
     "title": "Vinculando Rstudio con Github y Git",
@@ -33,5 +26,47 @@
     "title": "Vinculando Rstudio con Github y Git",
     "section": "3. Vincular un proyecto existente a Github",
     "text": "3. Vincular un proyecto existente a Github\nPara subir un proyecto que ya hayas creado en Rstudio a Github puedes guiarte del siguiente en enlace (⬇️Video). Para trabajar con un proyecto existente en Github y llevarlo a Rstudio puedes guiarte con este tutorial (⏬Video)."
+  },
+  {
+    "objectID": "posts/Limpieza_manipulacion_data/index.html",
+    "href": "posts/Limpieza_manipulacion_data/index.html",
+    "title": "Limpieza y manipulación de base de datos",
+    "section": "",
+    "text": "Para realizar cambios y manipulación de base de datos.\n\nCambiar nombre de una fila en una base de datos\n\n# cargando base de datos de ejemplo\nlibrary(tidyverse)\ndf1&lt;- read.csv(\"fruits.txt\", sep=\"\")\ndf1\n\n   Fruit Cost\n1  apple    6\n2  apple    7\n3 orange    3\n4 orange    4\n\n\n\nlibrary(dplyr)\nlibrary(car)\n1res &lt;- mutate(df1, Fruit= recode(Fruit, \"'apple'='lemon';'orange'='grape'\"))\nres\n\n\n1\n\nrecode hace parte de la library(car)\n\n\n\n\n  Fruit Cost\n1 lemon    6\n2 lemon    7\n3 grape    3\n4 grape    4"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this blog"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Blog",
+    "section": "",
+    "text": "Limpieza y manipulación de base de datos\n\n\n\n\n\nlimpiando y manipulando datos con tidyverse y otras\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nModelos de Distribución de Especies (SDM) en R\n\n\n\n\n\nNotas del curso de Udemy por Fabio Castro\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nVinculando Rstudio con Github y Git\n\n\n\n\n\nVincular Rstudio con Github mediante Git\n\n\n\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "posts/Modelo-distribucion-especies/index.html",
+    "href": "posts/Modelo-distribucion-especies/index.html",
+    "title": "Modelos de Distribución de Especies (SDM) en R",
+    "section": "",
+    "text": "Surgen en respuesta a la necesidad de conocer el nicho ecológico de las especies y así por estimar el radio de acción de estas en función de sus requerimientos.\nDentro de estos modelos se encuentras\n\nGLM, GAM (Guisan, Edwards y Hastle, 2002)\nRedes neuronales (Manel y Ormerod, 1999)\nBioclim (Rusby, 1991)\nDomain (Carpenter y Winter, 1993)\nENFA (ecological niche factor analysis)\nMaxent (Phillips y Schapire, 2006)\nRandom forest"
+  },
+  {
+    "objectID": "posts/Modelo-distribucion-especies/index.html#qué-son-los-sdm",
+    "href": "posts/Modelo-distribucion-especies/index.html#qué-son-los-sdm",
+    "title": "Modelos de Distribución de Especies (SDM) en R",
+    "section": "",
+    "text": "Surgen en respuesta a la necesidad de conocer el nicho ecológico de las especies y así por estimar el radio de acción de estas en función de sus requerimientos.\nDentro de estos modelos se encuentras\n\nGLM, GAM (Guisan, Edwards y Hastle, 2002)\nRedes neuronales (Manel y Ormerod, 1999)\nBioclim (Rusby, 1991)\nDomain (Carpenter y Winter, 1993)\nENFA (ecological niche factor analysis)\nMaxent (Phillips y Schapire, 2006)\nRandom forest"
+  },
+  {
+    "objectID": "posts/Modelo-distribucion-especies/index.html#cómo-se-evalúa-un-modelo-de-distribución-de-especies",
+    "href": "posts/Modelo-distribucion-especies/index.html#cómo-se-evalúa-un-modelo-de-distribución-de-especies",
+    "title": "Modelos de Distribución de Especies (SDM) en R",
+    "section": "¿Cómo se evalúa un modelo de distribución de especies?",
+    "text": "¿Cómo se evalúa un modelo de distribución de especies?\nPara evaluar la calidad de los modelos estadísticos, los mas usados son:\n\nROC (Receiver operating characteristics)\nAUC (Area under the curve)\n\nAcompañados de métodos como: Validación cruzada, validación cruzada generalizada, Bootstrapping, Kappa de Cohen, Análisis de correlación lineal, entre otras.\nLa curva ROC es una representación gráfica de un modelo para posibles puntos de corte, y necesita que los datos que se evalúan sean de presencia o pseudoausencia (o solo ausencia en su defecto).\n\nMáxima entropía\nmétodo para hacer predicciones a partir de información incompleta. El propósito es estimar una distribución de probabilidad y así encontrar la distribución sujeta a un conjunto de restricciones que representan la infomación incompleta acerca de la distribución en estudio.\nSu objetivo es estimarla idoneidad de la especie (Hutchinson, 1957).\n\n\nDatos necesarios para trabajar con SDM\n\npresencia de la especies\nClima / Variables importantes para la especie\nPseudo-ausencias (simulación de observaciones de ausencia)"
   }
 ]
