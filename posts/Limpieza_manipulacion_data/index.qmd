@@ -1,13 +1,9 @@
 ---
 title: "Limpieza y manipulación de base de datos"
-description: |
-limpiando y manipulando datos con tidyverse y otras
+description: "limpiando y manipulando datos con tidyverse y otras"
 author: "Daniela Ospino"
 categories: [data, code, Tidyverse]
 image: "limpiar-db.png"
-execute: 
-  warning: false
-  message: false
 ---
 
 Para realizar cambios y manipulación de base de datos.
