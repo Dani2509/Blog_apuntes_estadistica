@@ -10,6 +10,8 @@ execute:
   message: false
 ---
 
+Para realizar cambios y manipulación de base de datos.
+
 ### Cambiar nombre de una fila en una base de datos
 
 ```{r}
