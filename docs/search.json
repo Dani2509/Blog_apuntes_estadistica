@@ -28,27 +28,6 @@
     "text": "3. Vincular un proyecto existente a Github\nPara subir un proyecto que ya hayas creado en Rstudio a Github puedes guiarte del siguiente en enlace (⬇️Video). Para trabajar con un proyecto existente en Github y llevarlo a Rstudio puedes guiarte con este tutorial (⏬Video)."
   },
   {
-    "objectID": "posts/Limpieza_manipulacion_data/index.html",
-    "href": "posts/Limpieza_manipulacion_data/index.html",
-    "title": "Limpieza y manipulación de base de datos",
-    "section": "",
-    "text": "Para realizar cambios y manipulación de base de datos.\n\nCambiar nombre de una fila en una base de datos\n\n# cargando base de datos de ejemplo\nlibrary(tidyverse)\ndf1&lt;- read.csv(\"fruits.txt\", sep=\"\")\ndf1\n\n   Fruit Cost\n1  apple    6\n2  apple    7\n3 orange    3\n4 orange    4\n\n\n\nlibrary(dplyr)\nlibrary(car)\n1res &lt;- mutate(df1, Fruit= recode(Fruit, \"'apple'='lemon';'orange'='grape'\"))\nres\n\n\n1\n\nrecode hace parte de la library(car)\n\n\n\n\n  Fruit Cost\n1 lemon    6\n2 lemon    7\n3 grape    3\n4 grape    4"
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "About this blog"
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Blog",
-    "section": "",
-    "text": "Limpieza y manipulación de base de datos\n\n\n\n\n\nlimpiando y manipulando datos con tidyverse y otras\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nModelos de Distribución de Especies (SDM) en R\n\n\n\n\n\nNotas del curso de Udemy por Fabio Castro\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nVinculando Rstudio con Github y Git\n\n\n\n\n\nVincular Rstudio con Github mediante Git\n\n\n\n\n\n\n\n\n\nNo matching items"
-  },
-  {
     "objectID": "posts/Modelo-distribucion-especies/index.html",
     "href": "posts/Modelo-distribucion-especies/index.html",
     "title": "Modelos de Distribución de Especies (SDM) en R",
@@ -68,5 +47,47 @@
     "title": "Modelos de Distribución de Especies (SDM) en R",
     "section": "¿Cómo se evalúa un modelo de distribución de especies?",
     "text": "¿Cómo se evalúa un modelo de distribución de especies?\nPara evaluar la calidad de los modelos estadísticos, los mas usados son:\n\nROC (Receiver operating characteristics)\nAUC (Area under the curve)\n\nAcompañados de métodos como: Validación cruzada, validación cruzada generalizada, Bootstrapping, Kappa de Cohen, Análisis de correlación lineal, entre otras.\nLa curva ROC es una representación gráfica de un modelo para posibles puntos de corte, y necesita que los datos que se evalúan sean de presencia o pseudoausencia (o solo ausencia en su defecto).\n\nMáxima entropía\nmétodo para hacer predicciones a partir de información incompleta. El propósito es estimar una distribución de probabilidad y así encontrar la distribución sujeta a un conjunto de restricciones que representan la infomación incompleta acerca de la distribución en estudio.\nSu objetivo es estimarla idoneidad de la especie (Hutchinson, 1957).\n\n\nDatos necesarios para trabajar con SDM\n\npresencia de la especies\nClima / Variables importantes para la especie\nPseudo-ausencias (simulación de observaciones de ausencia)"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Blog",
+    "section": "",
+    "text": "Limpieza y manipulación de base de datos\n\n\n\n\n\nlimpiando y manipulando datos con tidyverse y otras\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nModelos de Distribución de Especies (SDM) en R\n\n\n\n\n\nNotas del curso de Udemy por Fabio Castro\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSIG con R\n\n\n\n\n\nApuntes de la escuela ambiental\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nVinculando Rstudio con Github y Git\n\n\n\n\n\nVincular Rstudio con Github mediante Git\n\n\n\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this blog"
+  },
+  {
+    "objectID": "posts/Limpieza_manipulacion_data/index.html",
+    "href": "posts/Limpieza_manipulacion_data/index.html",
+    "title": "Limpieza y manipulación de base de datos",
+    "section": "",
+    "text": "Para realizar cambios y manipulación de base de datos.\n\nCambiar nombre de una fila en una base de datos\n\n# cargando base de datos de ejemplo\nlibrary(tidyverse)\ndf1&lt;- read.csv(\"fruits.txt\", sep=\"\")\ndf1\n\n   Fruit Cost\n1  apple    6\n2  apple    7\n3 orange    3\n4 orange    4\n\n\n\nlibrary(dplyr)\nlibrary(car)\n1res &lt;- mutate(df1, Fruit= recode(Fruit, \"'apple'='lemon';'orange'='grape'\"))\nres\n\n\n1\n\nrecode hace parte de la library(car)\n\n\n\n\n  Fruit Cost\n1 lemon    6\n2 lemon    7\n3 grape    3\n4 grape    4"
+  },
+  {
+    "objectID": "posts/SIG-con-R/index.html",
+    "href": "posts/SIG-con-R/index.html",
+    "title": "SIG con R",
+    "section": "",
+    "text": "Sistemas de información geográfico con R"
+  },
+  {
+    "objectID": "posts/SIG-con-R/index.html#cargar-y-trazar-archivos-shapefile",
+    "href": "posts/SIG-con-R/index.html#cargar-y-trazar-archivos-shapefile",
+    "title": "SIG con R",
+    "section": "Cargar y trazar archivos Shapefile",
+    "text": "Cargar y trazar archivos Shapefile\n\nlibrary(sf) # para abrir archivos shp\nlibrary(sp) \n# library(rgdal)\n\n# leyendo shapefile de Colombia\n1col_admin&lt;- read_sf(\"COL_adm/COL_adm1.shp\")\n2plot(col_admin)\n\n\n1\n\ncódigo de library sf, te visualiza el shp como base de datos\n\n2\n\nSe generan varios mapas que corresponden al número de columnas de la base de datos.\n\n\n\n\n\n\n\n\n\n\nplot(col_admin[1,5]) # especificando la fila y la columna\n\n\n\n\n\n\n\n# codigo del paquete rgdal \n# col_admin2&lt;- readOGR(\"COL_adm/COL_adm1.shp\")"
+  },
+  {
+    "objectID": "posts/SIG-con-R/index.html#dibujar-geometrías-vectoriales",
+    "href": "posts/SIG-con-R/index.html#dibujar-geometrías-vectoriales",
+    "title": "SIG con R",
+    "section": "Dibujar geometrías vectoriales",
+    "text": "Dibujar geometrías vectoriales"
   }
 ]
