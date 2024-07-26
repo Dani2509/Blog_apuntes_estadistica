@@ -1,0 +1,17 @@
+{
+  "hash": "3acd9e5d255ad8451547a43dbe4d53eb",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"SIG con R\"\ndescription: \"Apuntes de la escuela ambiental\"\nauthor: \"Daniela O\"\ncategories: [SIG, R]\nimage: \"sig1.png\"\n---\n\n\nSistemas de información geográfico con R\n\n## Cargar y trazar archivos Shapefile\n\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(sf) # para abrir archivos shp\nlibrary(sp) \n# library(rgdal)\n\n# leyendo shapefile de Colombia\ncol_admin<- read_sf(\"COL_adm/COL_adm1.shp\") #<1>\nplot(col_admin) #<2>\n```\n\n::: {.cell-output-display}\n![](index_files/figure-html/unnamed-chunk-1-1.png){width=672}\n:::\n\n```{.r .cell-code}\nplot(col_admin[1,5]) # especificando la fila y la columna\n```\n\n::: {.cell-output-display}\n![](index_files/figure-html/unnamed-chunk-1-2.png){width=672}\n:::\n\n```{.r .cell-code}\n# codigo del paquete rgdal \n# col_admin2<- readOGR(\"COL_adm/COL_adm1.shp\")\n```\n:::\n\n1. código de library sf, te visualiza el shp como base de datos\n2. Se generan varios mapas que corresponden al número de columnas de la base de datos. \n\n## Dibujar geometrías vectoriales\n\n\n",
+    "supporting": [
+      "index_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
