@@ -3,6 +3,7 @@ title: "SIG con R"
 description: "Apuntes de la escuela ambiental"
 author: "Daniela O"
 categories: [SIG, R]
+date: 2024-07-27
 image: "sig1.png"
 ---
 
@@ -23,9 +24,18 @@ plot(col_admin[1,5]) # especificando la fila y la columna
 # codigo del paquete rgdal 
 # col_admin2<- readOGR("COL_adm/COL_adm1.shp")
 ```
-1. código de library sf, te visualiza el shp como base de datos
-2. Se generan varios mapas que corresponden al número de columnas de la base de datos. 
+
+1.  código de library sf, te visualiza el shp como base de datos
+2.  Se generan varios mapas que corresponden al número de columnas de la base de datos.
 
 ## Dibujar geometrías vectoriales
 
+### Crear geometrías vectoriales
 
+```{r}
+install.packages("mapedit")
+install.packages("mapview")
+library(mapview)
+library(mapedit)
+library(dplyr)
+```

@@ -2,6 +2,7 @@
 title: "Modelos de Distribución de Especies (SDM) en R"
 description: "Notas del curso de Udemy por Fabio Castro"
 author: "Daniela Ospino"
+date: 2024-06-12
 categories: [SDM, Modelacion]
 image: "concept.jpg"
 ---

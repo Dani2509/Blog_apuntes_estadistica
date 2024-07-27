@@ -2,6 +2,7 @@
 title: "Vinculando Rstudio con Github y Git"
 author: "Daniela Ospino"
 categories: [Github, Git]
+date: 2024-05-20
 description: "Vincular Rstudio con Github mediante Git"
 ---
 
