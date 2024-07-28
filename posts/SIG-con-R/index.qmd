@@ -1,5 +1,5 @@
 ---
-title: "SIG con R"
+title: "SIG con R: Vectores part 1"
 description: "Apuntes de la escuela ambiental"
 author: "Daniela O"
 categories: [SIG, R]
