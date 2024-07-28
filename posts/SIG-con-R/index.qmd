@@ -5,6 +5,7 @@ author: "Daniela O"
 categories: [SIG, R]
 date: 2024-07-27
 image: "sig1.png"
+toc-expand: true
 ---
 
 Sistemas de información geográfico con R
@@ -33,9 +34,103 @@ plot(col_admin[1,5]) # especificando la fila y la columna
 ### Crear geometrías vectoriales
 
 ```{r}
-install.packages("mapedit")
-install.packages("mapview")
+#install.packages("mapedit")
+#install.packages("mapview")
 library(mapview)
 library(mapedit)
 library(dplyr)
+
+# 1. Cargar una ventana con un mapa base
+mapview()
 ```
+
+```{r}
+#| class-source: "Crear puntos"
+# para colocar puntos, poligonos o lineas
+ puntos<- mapview() |> editMap() #<1>
+```
+
+1.  Esto te abre un panel de herramientas para colocar puntos y polígonos dentro del mapa interactivo y se guarda como base de datos
+
+```{r}
+# Guardando como archivo shape
+library(sf)
+mapview(puntos$drawn) # se selecciona todo lo que se dibujo anteriormente
+
+# write_sf(puntos$drawn, "COL_adm/puntos.shp") 
+# solo se pueden guardar o solo puntos, poligonos, no se pueden mezclar. 
+```
+
+![](puntos_drawn.jpg)
+
+## Convertir csv a forma / manipulación vectorial
+
+```{r}
+library(tidyverse)
+library(sf)
+library(mapview)
+
+# abriendo base de datos 
+obs<- read.csv2("specie_rana.csv", header = TRUE)
+head(obs)
+```
+
+```{r}
+# convirtiendo a shp
+obs_shp<- st_as_sf(obs, coords = c("Longitude", "Latitude"), crs=4326)
+head(obs_shp)
+mapview(obs_shp)
+```
+
+Luego esto se puede exportar como archivo shapefile como vimos anteriormente
+
+# Descargar formas de países en R
+
+```{r}
+# Descargar paises desde R
+library(raster) # paquete con shp de paises, wordclim y modelos de elevación 
+library(sf)
+library(dplyr)
+library(mapview)
+library(geodata) # version actual de library raster
+library(terra)
+
+#getData("ISO3")
+#Mexico_2<-gadm(country="MEX", level= 2, path ="Mexico" ) |> st_as_sf()
+
+#mapview(Mexico_2)
+```
+
+## Cambiar el sistema de coordenadas de referencia de un shapefile 📍
+
+Para cambiarlo nos dirigimos a la página: <https://spatialreference.org/> para encontrar las diferentes proyecciones.
+
+```{r}
+# Cambiar sistemas de coordenas de una geometria vectorial
+library(sf)
+library(raster)
+library(geodata)
+
+# obtener limite de un pais de interes que nos servir? como ejemplo
+
+colombia<-gadm(country="COL", level= 0, path ="Colombia" ) |> st_as_sf()
+colombia
+
+```
+
+```{r}
+# reproyectar con proj4
+col_magna<- st_transform(colombia, "+proj=tmerc +lat_0=4.596200416666666 +lon_0=-74.07750791666666 +k=1 +x_0=1000000 +y_0=1000000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs")
+col_magna
+```
+
+Se busca en la página <https://spatialreference.org/> el tipo de proyección (en este caso la Magma SIRGAS) y se pega el codigo que ofrece
+
+```{r}
+# reproyectar con codigo EPSG
+col_utm<-st_transform(colombia, crs= 32618)
+col_utm
+```
+
+![Zonas UTM](UTM_zonas.jpg){.lightbox}
+

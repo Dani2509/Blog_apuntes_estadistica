@@ -2,9 +2,9 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/SIG-con-R/index.html",
       "/posts/Limpieza_manipulacion_data/index.html",
       "/posts/Modelo-distribucion-especies/index.html",
-      "/posts/SIG-con-R/index.html",
       "/posts/vincular_git/index.html"
     ]
   }
