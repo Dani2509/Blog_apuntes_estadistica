@@ -15,3 +15,40 @@ Continuación de apuntes con manipulación y operación con vectores
 ## Crear polígonos mínimos convexos
 
 En ecología y biología nos ayuda para determinar hábitos hogareños, es decir, encontrar el área en el que se desplaza una especie.
+
+```{r}
+# librerias requeridas
+library(sf)
+library(mapview)
+library(dplyr)
+```
+
+```{r}
+# Cargamos el dataframe con los puntos
+
+registros<-read.csv("Registros.csv", header = T) %>% st_as_sf(coords=c("Longitude","Latitude"), crs=4326)
+mapview(registros)
+```
+
+```{r}
+# Observar solo la sp1
+sp1<-filter(registros, Species=="sp1")
+mapview(sp1)
+```
+
+```{r}
+# Generar PMC para una sola especie
+pmc1<- sp1 %>% group_by(Species) %>%
+    summarise(geometry= st_combine(geometry)) |> st_convex_hull()
+
+mapview(list(pmc1, sp1))
+```
+
+```{r}
+# Generar poligonos para todas las especies
+pmc_spp<- registros %>% group_by(Species) %>%
+    summarise(geometry= st_combine(geometry)) %>%
+    st_convex_hull()
+
+mapview(list(pmc_spp, registros))
+```
