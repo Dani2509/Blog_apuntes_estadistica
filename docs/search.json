@@ -116,6 +116,6 @@
     "href": "posts/SIG-r-part2/index.html#crear-polígonos-mínimos-convexos",
     "title": "SIG con R: Vectores part 2",
     "section": "Crear polígonos mínimos convexos",
-    "text": "Crear polígonos mínimos convexos\nEn ecología y biología nos ayuda para determinar hábitos hogareños, es decir, encontrar el área en el que se desplaza una especie."
+    "text": "Crear polígonos mínimos convexos\nEn ecología y biología nos ayuda para determinar hábitos hogareños, es decir, encontrar el área en el que se desplaza una especie.\n\n# librerias requeridas\nlibrary(sf)\nlibrary(mapview)\nlibrary(dplyr)\n\n\n# Cargamos el dataframe con los puntos\n\nregistros&lt;-read.csv(\"Registros.csv\", header = T) %&gt;% st_as_sf(coords=c(\"Longitude\",\"Latitude\"), crs=4326)\nmapview(registros)\n\n\n\n\n\n\n# Observar solo la sp1\nsp1&lt;-filter(registros, Species==\"sp1\")\nmapview(sp1)\n\n\n\n\n\n\n# Generar PMC para una sola especie\npmc1&lt;- sp1 %&gt;% group_by(Species) %&gt;%\n    summarise(geometry= st_combine(geometry)) |&gt; st_convex_hull()\n\nmapview(list(pmc1, sp1))\n\n\n\n\n\n\n# Generar poligonos para todas las especies\npmc_spp&lt;- registros %&gt;% group_by(Species) %&gt;%\n    summarise(geometry= st_combine(geometry)) %&gt;%\n    st_convex_hull()\n\nmapview(list(pmc_spp, registros))"
   }
 ]
