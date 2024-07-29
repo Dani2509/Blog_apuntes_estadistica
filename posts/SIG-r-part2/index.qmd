@@ -1,0 +1,17 @@
+---
+title: "SIG con R: Vectores part 2"
+description: "Apuntes de la escuela ambiental"
+author: "Daniela O"
+categories: [SIG, R]
+date: 2024-07-28
+image: "vectors.png"
+toc-expand: true
+---
+
+Continuación de apuntes con manipulación y operación con vectores
+
+![](vectors.png){fig-align="center" width="373"}
+
+## Crear polígonos mínimos convexos
+
+En ecología y biología nos ayuda para determinar hábitos hogareños, es decir, encontrar el área en el que se desplaza una especie.

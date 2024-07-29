@@ -53,7 +53,7 @@
     "href": "index.html",
     "title": "Blog",
     "section": "",
-    "text": "SIG con R\n\n\n\n\n\nApuntes de la escuela ambiental\n\n\n\n\n\nJul 27, 2024\n\n\n\n\n\n\n\n\n\n\n\n\nLimpieza y manipulación de base de datos\n\n\n\n\n\nlimpiando y manipulando datos con tidyverse y otras\n\n\n\n\n\nJul 25, 2024\n\n\n\n\n\n\n\n\n\n\n\n\nModelos de Distribución de Especies (SDM) en R\n\n\n\n\n\nNotas del curso de Udemy por Fabio Castro\n\n\n\n\n\nJun 12, 2024\n\n\n\n\n\n\n\n\n\n\n\n\nVinculando Rstudio con Github y Git\n\n\n\n\n\nVincular Rstudio con Github mediante Git\n\n\n\n\n\nMay 20, 2024\n\n\n\n\n\n\nNo matching items"
+    "text": "SIG con R: Vectores part 2\n\n\n\n\n\nApuntes de la escuela ambiental\n\n\n\n\n\nJul 28, 2024\n\n\n\n\n\n\n\n\n\n\n\n\nSIG con R: Vectores part 1\n\n\n\n\n\nApuntes de la escuela ambiental\n\n\n\n\n\nJul 27, 2024\n\n\n\n\n\n\n\n\n\n\n\n\nLimpieza y manipulación de base de datos\n\n\n\n\n\nlimpiando y manipulando datos con tidyverse y otras\n\n\n\n\n\nJul 25, 2024\n\n\n\n\n\n\n\n\n\n\n\n\nModelos de Distribución de Especies (SDM) en R\n\n\n\n\n\nNotas del curso de Udemy por Fabio Castro\n\n\n\n\n\nJun 12, 2024\n\n\n\n\n\n\n\n\n\n\n\n\nVinculando Rstudio con Github y Git\n\n\n\n\n\nVincular Rstudio con Github mediante Git\n\n\n\n\n\nMay 20, 2024\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "about.html",
@@ -72,36 +72,50 @@
   {
     "objectID": "posts/SIG-con-R/index.html",
     "href": "posts/SIG-con-R/index.html",
-    "title": "SIG con R",
+    "title": "SIG con R: Vectores part 1",
     "section": "",
     "text": "Sistemas de información geográfico con R"
   },
   {
     "objectID": "posts/SIG-con-R/index.html#cargar-y-trazar-archivos-shapefile",
     "href": "posts/SIG-con-R/index.html#cargar-y-trazar-archivos-shapefile",
-    "title": "SIG con R",
+    "title": "SIG con R: Vectores part 1",
     "section": "Cargar y trazar archivos Shapefile",
     "text": "Cargar y trazar archivos Shapefile\n\nlibrary(sf) # para abrir archivos shp\nlibrary(sp) \n# library(rgdal)\n\n# leyendo shapefile de Colombia\n1col_admin&lt;- read_sf(\"COL_adm/COL_adm1.shp\")\n2plot(col_admin)\n\n\n1\n\ncódigo de library sf, te visualiza el shp como base de datos\n\n2\n\nSe generan varios mapas que corresponden al número de columnas de la base de datos.\n\n\n\n\n\n\n\n\n\n\nplot(col_admin[1,5]) # especificando la fila y la columna\n\n\n\n\n\n\n\n# codigo del paquete rgdal \n# col_admin2&lt;- readOGR(\"COL_adm/COL_adm1.shp\")"
   },
   {
     "objectID": "posts/SIG-con-R/index.html#dibujar-geometrías-vectoriales",
     "href": "posts/SIG-con-R/index.html#dibujar-geometrías-vectoriales",
-    "title": "SIG con R",
+    "title": "SIG con R: Vectores part 1",
     "section": "Dibujar geometrías vectoriales",
     "text": "Dibujar geometrías vectoriales\n\nCrear geometrías vectoriales\n\n#install.packages(\"mapedit\")\n#install.packages(\"mapview\")\nlibrary(mapview)\nlibrary(mapedit)\nlibrary(dplyr)\n\n# 1. Cargar una ventana con un mapa base\nmapview()\n\n\n\n\n\n\n# para colocar puntos, poligonos o lineas\n1 puntos&lt;- mapview() |&gt; editMap()\n\n\n1\n\nEsto te abre un panel de herramientas para colocar puntos y polígonos dentro del mapa interactivo y se guarda como base de datos\n\n\n\n\n\n# Guardando como archivo shape\nlibrary(sf)\nmapview(puntos$drawn) # se selecciona todo lo que se dibujo anteriormente\n\nNULL\n\n# write_sf(puntos$drawn, \"COL_adm/puntos.shp\") \n# solo se pueden guardar o solo puntos, poligonos, no se pueden mezclar."
   },
   {
     "objectID": "posts/SIG-con-R/index.html#convertir-csv-a-forma-manipulación-vectorial",
     "href": "posts/SIG-con-R/index.html#convertir-csv-a-forma-manipulación-vectorial",
-    "title": "SIG con R",
+    "title": "SIG con R: Vectores part 1",
     "section": "Convertir csv a forma / manipulación vectorial",
     "text": "Convertir csv a forma / manipulación vectorial\n\nlibrary(tidyverse)\nlibrary(sf)\nlibrary(mapview)\n\n# abriendo base de datos \nobs&lt;- read.csv2(\"specie_rana.csv\", header = TRUE)\nhead(obs)\n\n                     Species Longitude Latitude Temp Prec Prec_qs Prec_qh\n1 Leucostethus fraterdanieli  -75.8531   4.8668  223 1756     678     299\n2 Leucostethus fraterdanieli  -75.8348   4.6978  217 1870     647     316\n3 Leucostethus fraterdanieli  -75.5791   4.7352  177 2079     801     313\n4 Leucostethus fraterdanieli  -75.8320   4.6083  217 1762     652     271\n5 Leucostethus fraterdanieli  -75.4441   5.1852  159 2292     991     342\n6 Leucostethus fraterdanieli  -75.6869   5.2415  233 1852     677     287\n  elevacion\n1       999\n2      1162\n3      1918\n4      1155\n5      2213\n6       838\n\n\n\n# convirtiendo a shp\nobs_shp&lt;- st_as_sf(obs, coords = c(\"Longitude\", \"Latitude\"), crs=4326)\nhead(obs_shp)\n\nSimple feature collection with 6 features and 6 fields\nGeometry type: POINT\nDimension:     XY\nBounding box:  xmin: -75.8531 ymin: 4.6083 xmax: -75.4441 ymax: 5.2415\nGeodetic CRS:  WGS 84\n                     Species Temp Prec Prec_qs Prec_qh elevacion\n1 Leucostethus fraterdanieli  223 1756     678     299       999\n2 Leucostethus fraterdanieli  217 1870     647     316      1162\n3 Leucostethus fraterdanieli  177 2079     801     313      1918\n4 Leucostethus fraterdanieli  217 1762     652     271      1155\n5 Leucostethus fraterdanieli  159 2292     991     342      2213\n6 Leucostethus fraterdanieli  233 1852     677     287       838\n                 geometry\n1 POINT (-75.8531 4.8668)\n2 POINT (-75.8348 4.6978)\n3 POINT (-75.5791 4.7352)\n4  POINT (-75.832 4.6083)\n5 POINT (-75.4441 5.1852)\n6 POINT (-75.6869 5.2415)\n\nmapview(obs_shp)\n\n\n\n\n\nLuego esto se puede exportar como archivo shapefile como vimos anteriormente"
   },
   {
     "objectID": "posts/SIG-con-R/index.html#cambiar-el-sistema-de-coordenadas-de-referencia-de-un-shapefile",
     "href": "posts/SIG-con-R/index.html#cambiar-el-sistema-de-coordenadas-de-referencia-de-un-shapefile",
-    "title": "SIG con R",
+    "title": "SIG con R: Vectores part 1",
     "section": "Cambiar el sistema de coordenadas de referencia de un shapefile 📍",
     "text": "Cambiar el sistema de coordenadas de referencia de un shapefile 📍\nPara cambiarlo nos dirigimos a la página: https://spatialreference.org/ para encontrar las diferentes proyecciones.\n\n# Cambiar sistemas de coordenas de una geometria vectorial\nlibrary(sf)\nlibrary(raster)\nlibrary(geodata)\n\n# obtener limite de un pais de interes que nos servir? como ejemplo\n\ncolombia&lt;-gadm(country=\"COL\", level= 0, path =\"Colombia\" ) |&gt; st_as_sf()\ncolombia\n\nSimple feature collection with 1 feature and 2 fields\nGeometry type: MULTIPOLYGON\nDimension:     XY\nBounding box:  xmin: -81.84153 ymin: -4.228429 xmax: -66.83774 ymax: 15.91248\nGeodetic CRS:  WGS 84\n  GID_0  COUNTRY                       geometry\n1   COL Colombia MULTIPOLYGON (((-69.92329 -...\n\n\n\n# reproyectar con proj4\ncol_magna&lt;- st_transform(colombia, \"+proj=tmerc +lat_0=4.596200416666666 +lon_0=-74.07750791666666 +k=1 +x_0=1000000 +y_0=1000000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs\")\ncol_magna\n\nSimple feature collection with 1 feature and 2 fields\nGeometry type: MULTIPOLYGON\nDimension:     XY\nBounding box:  xmin: 152612.3 ymin: 22983.61 xmax: 1807919 ymax: 2258249\nProjected CRS: +proj=tmerc +lat_0=4.596200416666666 +lon_0=-74.07750791666666 +k=1 +x_0=1000000 +y_0=1000000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs\n  GID_0  COUNTRY                       geometry\n1   COL Colombia MULTIPOLYGON (((1461621 271...\n\n\nSe busca en la página https://spatialreference.org/ el tipo de proyección (en este caso la Magma SIRGAS) y se pega el codigo que ofrece\n\n# reproyectar con codigo EPSG\ncol_utm&lt;-st_transform(colombia, crs= 32618)\ncol_utm\n\nSimple feature collection with 1 feature and 2 fields\nGeometry type: MULTIPOLYGON\nDimension:     XY\nBounding box:  xmin: -245935.3 ymin: -469204.3 xmax: 1411165 ymax: 1763314\nProjected CRS: WGS 84 / UTM zone 18N\n  GID_0  COUNTRY                       geometry\n1   COL Colombia MULTIPOLYGON (((1064147 -46...\n\n\n\n\n\nZonas UTM\n\n\n\n\n\nZonas UTM"
+  },
+  {
+    "objectID": "posts/SIG-r-part2/index.html",
+    "href": "posts/SIG-r-part2/index.html",
+    "title": "SIG con R: Vectores part 2",
+    "section": "",
+    "text": "Continuación de apuntes con manipulación y operación con vectores"
+  },
+  {
+    "objectID": "posts/SIG-r-part2/index.html#crear-polígonos-mínimos-convexos",
+    "href": "posts/SIG-r-part2/index.html#crear-polígonos-mínimos-convexos",
+    "title": "SIG con R: Vectores part 2",
+    "section": "Crear polígonos mínimos convexos",
+    "text": "Crear polígonos mínimos convexos\nEn ecología y biología nos ayuda para determinar hábitos hogareños, es decir, encontrar el área en el que se desplaza una especie."
   }
 ]
