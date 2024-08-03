@@ -222,7 +222,7 @@ Tengan en cuenta que el sistema de coordenadas de referencia nos marca las unida
 ```{r}
 #| label: "creando buffer"
 # creando buffer 
-polibuff<-st_buffer(polig, dist= 10000)
+polibuff<-st_buffer(polig, dist= 10000) #<1>
 mapview(list(polig, polibuff))
 
 puntbuff<-st_buffer(point, dist= 5000)
@@ -231,6 +231,8 @@ mapview(list(point, puntbuff))
 linbuff<-st_buffer(rutas, dist= 500)
 mapview(list(rutas, linbuff))
 ```
+
+1.  la distancia este en metros 😀 que equivalen a 10 km
 
 ```{r}
 #| class-source: "imagen"
@@ -243,10 +245,12 @@ mapview(list(polig, polibuff, polibuff2))
 
 ```{r}
 # Calculo de areas
-a_po<-st_area(polig)/1000000
+a_po<-st_area(polig)/1000000 #<1>
 a_pb<-st_area(polibuff)/1000000
 a_pb2<-st_area(polibuff2)/1000000
 ```
+
+1.  Se divide entre un millón para pasar de $m^2$ a $km^2$
 
 ```{r}
 areakm2<-c(a_po, a_pb, a_pb2)
