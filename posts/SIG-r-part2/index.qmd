@@ -254,6 +254,7 @@ a_pb2<-st_area(polibuff2)/1000000
 
 ```{r}
 areakm2<-c(a_po, a_pb, a_pb2)
+# calculando diferencias entre los poligonos
 areakm2[1]-areakm2[2]
 areakm2[1]-areakm2[3]
 ```
