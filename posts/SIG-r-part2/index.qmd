@@ -191,4 +191,73 @@ class(ob_shape)
 # write_sf(obs_shp, "alpha_hull.shp")
 ```
 
-## Búferes 
+## Búferes
+
+¿ Cómo dibujar un área sobre sobre un polígono ?
+
+```{r}
+#| label: "lib buffer"
+# librerias requeridas
+library(sf)
+library(mapedit)
+library(mapview)
+library(tidyverse)
+```
+
+```{r}
+poligono <-mapview() %>% editMap()
+puntos <-mapview() %>% editMap()
+lineas <-mapview() %>% editMap()
+
+#transformar sistemas de coordenadas
+polig<- poligono$finished %>% st_transform(crs=32618)
+point<- puntos$finished %>% st_transform(crs=32618)
+rutas<- lineas$finished %>% st_transform(crs=32618)
+
+mapview(list(polig, point, rutas))
+```
+
+Tengan en cuenta que el sistema de coordenadas de referencia nos marca las unidades de distancia (En este caso el sistema de coordenadas esta en UTM y trabaja las distancias en metros). Si quieren que las unidades sean metros deben reproyectar su capa. 1 km equivale a aproximadamente 0.0083333 grados
+
+```{r}
+#| label: "creando buffer"
+# creando buffer 
+polibuff<-st_buffer(polig, dist= 10000)
+mapview(list(polig, polibuff))
+
+puntbuff<-st_buffer(point, dist= 5000)
+mapview(list(point, puntbuff))
+
+linbuff<-st_buffer(rutas, dist= 500)
+mapview(list(rutas, linbuff))
+```
+
+```{r}
+#| class-source: "imagen"
+# buffer negativo
+polibuff2<-st_buffer(polig, dist= -10000)
+mapview(list(polig, polibuff, polibuff2))
+```
+
+## Calculando áreas
+
+```{r}
+# Calculo de areas
+a_po<-st_area(polig)/1000000
+a_pb<-st_area(polibuff)/1000000
+a_pb2<-st_area(polibuff2)/1000000
+```
+
+```{r}
+areakm2<-c(a_po, a_pb, a_pb2)
+areakm2[1]-areakm2[2]
+areakm2[1]-areakm2[3]
+```
+
+```{r}
+col<- read_sf("COL_adm1.shp")
+area_col<-st_area(col)/1000000
+
+#calculo de areas de departamentos 
+areas_depa<- col %>% mutate(AREAKM=st_area(col)/1000000)
+```
