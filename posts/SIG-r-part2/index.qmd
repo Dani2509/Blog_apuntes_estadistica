@@ -209,9 +209,13 @@ library(tidyverse)
 ```
 
 ```{r}
+#| eval: false
+# para dibujar los shapefile
 poligono <-mapview() %>% editMap()
 puntos <-mapview() %>% editMap()
 lineas <-mapview() %>% editMap()
+
+mapview(poligono$drawn)
 
 #transformar sistemas de coordenadas
 polig<- poligono$finished %>% st_transform(crs=32618)
@@ -221,9 +225,14 @@ rutas<- lineas$finished %>% st_transform(crs=32618)
 mapview(list(polig, point, rutas))
 ```
 
+```{r}
+# write_sf(poligono$drawn, "polig.shp")
+```
+
 Tengan en cuenta que el sistema de coordenadas de referencia nos marca las unidades de distancia (En este caso el sistema de coordenadas esta en UTM y trabaja las distancias en metros). Si quieren que las unidades sean metros deben reproyectar su capa. 1 km equivale a aproximadamente 0.0083333 grados
 
 ```{r}
+#| eval: false
 #| label: "creando buffer"
 # creando buffer 
 polibuff<-st_buffer(polig, dist= 10000) #<1>
@@ -239,6 +248,7 @@ mapview(list(rutas, linbuff))
 1.  la distancia este en metros 😀 que equivalen a 10 km
 
 ```{r}
+#| eval: false
 #| class-source: "imagen"
 # buffer negativo
 polibuff2<-st_buffer(polig, dist= -10000)
@@ -248,6 +258,7 @@ mapview(list(polig, polibuff, polibuff2))
 ## Calculando áreas
 
 ```{r}
+#| eval: false
 # Calculo de areas
 a_po<-st_area(polig)/1000000 #<1>
 a_pb<-st_area(polibuff)/1000000
@@ -257,6 +268,7 @@ a_pb2<-st_area(polibuff2)/1000000
 1.  Se divide entre un millón para pasar de $m^2$ a $km^2$
 
 ```{r}
+#| eval: false
 areakm2<-c(a_po, a_pb, a_pb2)
 # calculando diferencias entre los poligonos
 areakm2[1]-areakm2[2]
