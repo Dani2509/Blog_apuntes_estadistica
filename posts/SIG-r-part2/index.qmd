@@ -71,7 +71,6 @@ library(sp)
 #| eval: true
 # Funcion para convertir los a-hull en shp (https://stat.ethz.ch/pipermail/r-sig-geo/2012-March/014409.html)
 
-
 ah2sp <- function(x, increment=360, rnd=10, proj4string=CRS(as.character(NA))){
     require(alphahull)
     require(maptools)
@@ -163,6 +162,7 @@ ah2sp <- function(x, increment=360, rnd=10, proj4string=CRS(as.character(NA))){
     }  
     return(res)
 }
+
 ```
 
 ```{r}
