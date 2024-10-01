@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Daniela O">
+<meta name="dcterms.date" content="2024-09-30">
+<meta name="description" content="Descarga de datos de UICN">
 
-<title> Blog de apuntes - Blog</title>
+<title> Blog de apuntes - Descarga de datos del UICN</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,30 +23,62 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./feather.svg" rel="icon" type="image/svg+xml">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
-<link href="site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../feather.svg" rel="icon" type="image/svg+xml">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -71,65 +106,7 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-image','listing-date','listing-title','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 </head>
 
@@ -140,7 +117,7 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title"><i class="fa-solid fa-feather" aria-label="feather"></i> Blog de apuntes</span>
     </a>
   </div>
@@ -163,25 +140,46 @@ window.Quarto = {
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-cloud"><div class="category" data-category="Git"><span class="quarto-category-count category-cloud-2">Git</span></div><div class="category" data-category="Github"><span class="quarto-category-count category-cloud-2">Github</span></div><div class="category" data-category="Modelacion"><span class="quarto-category-count category-cloud-2">Modelacion</span></div><div class="category" data-category="R"><span class="quarto-category-count category-cloud-7">R</span></div><div class="category" data-category="Raster"><span class="quarto-category-count category-cloud-2">Raster</span></div><div class="category" data-category="SDM"><span class="quarto-category-count category-cloud-2">SDM</span></div><div class="category" data-category="SIG"><span class="quarto-category-count category-cloud-7">SIG</span></div><div class="category" data-category="Tidyverse"><span class="quarto-category-count category-cloud-2">Tidyverse</span></div><div class="category" data-category="code"><span class="quarto-category-count category-cloud-2">code</span></div><div class="category" data-category="data"><span class="quarto-category-count category-cloud-2">data</span></div></div></div>
+    </div>
 <!-- main -->
-<main class="content column-page-left" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Blog</h1>
+<h1 class="title">Descarga de datos del UICN</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">SIG</div>
+    <div class="quarto-category">R</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    Descarga de datos de UICN
+  </div>
 </div>
 
 
+<div class="quarto-title-meta">
 
-<div class="quarto-title-meta column-page-left">
-
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Daniela O </p>
+          </div>
+  </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">September 30, 2024</p>
+    </div>
+  </div>
   
     
   </div>
@@ -191,217 +189,107 @@ window.Quarto = {
 </header>
 
 
+<p>Descarga de datos del UICN</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># liberias requeridas</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(taxize) <span class="co"># acceder a datos de UICN</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rredlist)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(writexl)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>data<span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"especies.xlsx"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 7
+  División Clase    Orden    Familia       Género Scientific.name `Nombre común`
+  &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;         &lt;chr&gt;  &lt;chr&gt;           &lt;chr&gt;         
+1 Chordata Amphibia Anura    Strabomantid… Geoba… Sciurus granat… Rana sierra d…
+2 Chordata Reptilia Squamata Teiidae       Ameiva Cerdocyon thous Lagarto Lobito
+3 Chordata Amphibia Anura    Strabomantid… Serra… Potos flavus    Rana ladrona …
+4 Chordata Reptilia Squamata Anolidae      Anolis Procyon cancri… Abaniquilllo …
+5 Chordata Reptilia Squamata Colubridae    Lepto… Coendou longic… Falsa Mapaná  
+6 Chordata Amphibia Anura    Leptodactyli… Lepto… Eira barbara    Rana Picuda   </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 10
+Columns: 7
+$ División        &lt;chr&gt; "Chordata", "Chordata", "Chordata", "Chordata", "Chord…
+$ Clase           &lt;chr&gt; "Amphibia", "Reptilia", "Amphibia", "Reptilia", "Repti…
+$ Orden           &lt;chr&gt; "Anura", "Squamata", "Anura", "Squamata", "Squamata", …
+$ Familia         &lt;chr&gt; "Strabomantidae", "Teiidae", "Strabomantidae", "Anolid…
+$ Género          &lt;chr&gt; "Geobatrachus", "Ameiva", "Serranobatrachus", "Anolis"…
+$ Scientific.name &lt;chr&gt; "Sciurus granatensis", "Cerdocyon thous", "Potos flavu…
+$ `Nombre común`  &lt;chr&gt; "Rana sierra de Walker", "Lagarto Lobito", "Rana ladro…</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>sp.list<span class="ot">&lt;-</span> data <span class="sc">|&gt;</span> <span class="fu">distinct</span>(Scientific.name)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>sp.list</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 1
+   Scientific.name      
+   &lt;chr&gt;                
+ 1 Sciurus granatensis  
+ 2 Cerdocyon thous      
+ 3 Potos flavus         
+ 4 Procyon cancrivorus  
+ 5 Coendou longicaudatus
+ 6 Eira barbara         
+ 7 Neogale frenata      
+ 8 Dasyprocta punctata  
+ 9 Alouatta seniculus   
+10 Iguana iguana        </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># obteniendo datos UICN</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>API <span class="ot">&lt;-</span> <span class="st">"MuXfvwppcPU8NwRvszhKskays14Ld4q66cCD"</span> <span class="co">#https://apiv3.iucnredlist.org/, provide IUCN acess</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>IUCN.list <span class="ot">&lt;-</span> <span class="fu">iucn_summary</span>(sp.list<span class="sc">$</span>Scientific.name, <span class="at">distr_detail=</span> <span class="cn">TRUE</span>, <span class="at">key =</span>API)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>══  1 queries  ═══════════════
+══  1 queries  ═══════════════
+══  1 queries  ═══════════════
+══  1 queries  ═══════════════
+══  1 queries  ═══════════════
+══  1 queries  ═══════════════
+══  1 queries  ═══════════════
+══  1 queries  ═══════════════
+══  1 queries  ═══════════════
+══  1 queries  ═══════════════</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># reacomodo de los datos </span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">iucn_status</span>(IUCN.list)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Sciurus granatensis       Cerdocyon thous          Potos flavus 
+                   NA                    NA                    NA 
+  Procyon cancrivorus Coendou longicaudatus          Eira barbara 
+                   NA                    NA                    NA 
+      Neogale frenata   Dasyprocta punctata    Alouatta seniculus 
+                   NA                    NA                    NA 
+        Iguana iguana 
+                   NA </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># data a base de datos</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>resultado_iucn<span class="ot">&lt;-</span><span class="fu">iucn_status</span>(IUCN.list) <span class="sc">|&gt;</span> <span class="fu">as.data.frame</span>()</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>resultado_completo <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Especie =</span> sp.list<span class="sc">$</span>Scientific.name, <span class="at">Status =</span> resultado_iucn)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co"># view(resultado_completo)</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co"># para descargar los datos</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="co">#write_xlsx(resultado_completo, "resultado.xlsx")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 
 
 
-
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="SIG,R,Raster" data-listing-date-sort="1727758800000" data-listing-file-modified-sort="1727804710272" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="105">
-<div class="thumbnail">
-<p><a href="./posts/SIG_raster/index.html" class="no-external"></a></p><a href="./posts/SIG_raster/index.html" class="no-external">
-<p class="card-img-top"><img src="posts\SIG_raster\index_files\figure-html\unnamed-chunk-1-1.png"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/SIG_raster/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/SIG_raster/index.html" class="no-external">Archivos raster en R</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/SIG_raster/index.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="./posts/SIG_raster/index.html" class="no-external">Creación, importación y exportación de archivos raster</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/SIG_raster/index.html" class="no-external">
-<div class="listing-date">
-Oct 1, 2024
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="SIG,R" data-listing-date-sort="1727672400000" data-listing-file-modified-sort="1727800131865" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="60">
-<div class="thumbnail">
-<p><a href="./posts/Datos_UICN/index.html" class="no-external"></a></p><a href="./posts/Datos_UICN/index.html" class="no-external">
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
-</a><p><a href="./posts/Datos_UICN/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/Datos_UICN/index.html" class="no-external">Descarga de datos del UICN</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/Datos_UICN/index.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="./posts/Datos_UICN/index.html" class="no-external">Descarga de datos de UICN</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/Datos_UICN/index.html" class="no-external">
-<div class="listing-date">
-Sep 30, 2024
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-categories="SIG,R" data-listing-date-sort="1726549200000" data-listing-file-modified-sort="1727705969867" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="199">
-<div class="thumbnail">
-<p><a href="./posts/datos_GBIF/index.html" class="no-external"></a></p><a href="./posts/datos_GBIF/index.html" class="no-external">
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
-</a><p><a href="./posts/datos_GBIF/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/datos_GBIF/index.html" class="no-external">Descarga de datos del GBIF</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/datos_GBIF/index.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="./posts/datos_GBIF/index.html" class="no-external">Descargando datos</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/datos_GBIF/index.html" class="no-external">
-<div class="listing-date">
-Sep 17, 2024
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="3" data-categories="SIG,R" data-listing-date-sort="1722142800000" data-listing-file-modified-sort="1726524098250" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="9" data-listing-word-count-sort="1725">
-<div class="thumbnail">
-<p><a href="./posts/SIG-r-part2_vector/index.html" class="no-external"></a></p><a href="./posts/SIG-r-part2_vector/index.html" class="no-external">
-<p><img src="./posts/SIG-r-part2_vector/vectors.png" class="thumbnail-image"></p>
-</a><p><a href="./posts/SIG-r-part2_vector/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/SIG-r-part2_vector/index.html" class="no-external">SIG con R: Vectores part 2</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/SIG-r-part2_vector/index.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="./posts/SIG-r-part2_vector/index.html" class="no-external">Apuntes de la escuela ambiental</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/SIG-r-part2_vector/index.html" class="no-external">
-<div class="listing-date">
-Jul 28, 2024
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="4" data-categories="SIG,R" data-listing-date-sort="1722056400000" data-listing-file-modified-sort="1722137813603" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="307">
-<div class="thumbnail">
-<p><a href="./posts/SIG-con-R/index.html" class="no-external"></a></p><a href="./posts/SIG-con-R/index.html" class="no-external">
-<p><img src="./posts/SIG-con-R/sig1.png" class="thumbnail-image"></p>
-</a><p><a href="./posts/SIG-con-R/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/SIG-con-R/index.html" class="no-external">SIG con R: Vectores part 1</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/SIG-con-R/index.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="./posts/SIG-con-R/index.html" class="no-external">Apuntes de la escuela ambiental</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/SIG-con-R/index.html" class="no-external">
-<div class="listing-date">
-Jul 27, 2024
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="5" data-categories="data,code,Tidyverse" data-listing-date-sort="1721883600000" data-listing-file-modified-sort="1722118426729" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="30">
-<div class="thumbnail">
-<p><a href="./posts/Limpieza_manipulacion_data/index.html" class="no-external"></a></p><a href="./posts/Limpieza_manipulacion_data/index.html" class="no-external">
-<p><img src="./posts/Limpieza_manipulacion_data/limpiar-db.png" class="thumbnail-image"></p>
-</a><p><a href="./posts/Limpieza_manipulacion_data/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/Limpieza_manipulacion_data/index.html" class="no-external">Limpieza y manipulación de base de datos</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/Limpieza_manipulacion_data/index.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="./posts/Limpieza_manipulacion_data/index.html" class="no-external">limpiando y manipulando datos con tidyverse y otras</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/Limpieza_manipulacion_data/index.html" class="no-external">
-<div class="listing-date">
-Jul 25, 2024
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="6" data-categories="SDM,Modelacion" data-listing-date-sort="1718168400000" data-listing-file-modified-sort="1722118381387" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="243">
-<div class="thumbnail">
-<p><a href="./posts/Modelo-distribucion-especies/index.html" class="no-external"></a></p><a href="./posts/Modelo-distribucion-especies/index.html" class="no-external">
-<p><img src="./posts/Modelo-distribucion-especies/concept.jpg" class="thumbnail-image"></p>
-</a><p><a href="./posts/Modelo-distribucion-especies/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/Modelo-distribucion-especies/index.html" class="no-external">Modelos de Distribución de Especies (SDM) en R</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/Modelo-distribucion-especies/index.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="./posts/Modelo-distribucion-especies/index.html" class="no-external">Notas del curso de Udemy por Fabio Castro</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/Modelo-distribucion-especies/index.html" class="no-external">
-<div class="listing-date">
-Jun 12, 2024
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="7" data-categories="Github,Git" data-listing-date-sort="1716181200000" data-listing-file-modified-sort="1722118340695" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="100">
-<div class="thumbnail">
-<p><a href="./posts/vincular_git/index.html" class="no-external"></a></p><a href="./posts/vincular_git/index.html" class="no-external">
-<p class="card-img-top"><img src="posts\vincular_git\interfaz_git.jpg"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/vincular_git/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/vincular_git/index.html" class="no-external">Vinculando Rstudio con Github y Git</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/vincular_git/index.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="./posts/vincular_git/index.html" class="no-external">Vincular Rstudio con Github mediante Git</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/vincular_git/index.html" class="no-external">
-<div class="listing-date">
-May 20, 2024
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

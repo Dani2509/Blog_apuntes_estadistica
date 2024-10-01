@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Daniela O">
+<meta name="dcterms.date" content="2024-10-01">
+<meta name="description" content="Creación, importación y exportación de archivos raster">
 
-<title> Blog de apuntes - Blog</title>
+<title> Blog de apuntes - Archivos raster en R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,30 +23,62 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./feather.svg" rel="icon" type="image/svg+xml">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
-<link href="site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../feather.svg" rel="icon" type="image/svg+xml">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -71,65 +106,7 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-image','listing-date','listing-title','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 </head>
 
@@ -140,7 +117,7 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title"><i class="fa-solid fa-feather" aria-label="feather"></i> Blog de apuntes</span>
     </a>
   </div>
@@ -163,25 +140,58 @@ window.Quarto = {
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-cloud"><div class="category" data-category="Git"><span class="quarto-category-count category-cloud-2">Git</span></div><div class="category" data-category="Github"><span class="quarto-category-count category-cloud-2">Github</span></div><div class="category" data-category="Modelacion"><span class="quarto-category-count category-cloud-2">Modelacion</span></div><div class="category" data-category="R"><span class="quarto-category-count category-cloud-7">R</span></div><div class="category" data-category="Raster"><span class="quarto-category-count category-cloud-2">Raster</span></div><div class="category" data-category="SDM"><span class="quarto-category-count category-cloud-2">SDM</span></div><div class="category" data-category="SIG"><span class="quarto-category-count category-cloud-7">SIG</span></div><div class="category" data-category="Tidyverse"><span class="quarto-category-count category-cloud-2">Tidyverse</span></div><div class="category" data-category="code"><span class="quarto-category-count category-cloud-2">code</span></div><div class="category" data-category="data"><span class="quarto-category-count category-cloud-2">data</span></div></div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#cargar-un-raster" id="toc-cargar-un-raster" class="nav-link active" data-scroll-target="#cargar-un-raster">Cargar un raster</a></li>
+  <li><a href="#como-crear-un-stack" id="toc-como-crear-un-stack" class="nav-link" data-scroll-target="#como-crear-un-stack">Como crear un stack</a>
+  <ul class="collapse">
+  <li><a href="#forma-uno" id="toc-forma-uno" class="nav-link" data-scroll-target="#forma-uno">Forma uno</a></li>
+  </ul></li>
+  <li><a href="#reproyectar-un-raster" id="toc-reproyectar-un-raster" class="nav-link" data-scroll-target="#reproyectar-un-raster">Reproyectar un raster</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
-<main class="content column-page-left" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Blog</h1>
+<h1 class="title">Archivos raster en R</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">SIG</div>
+    <div class="quarto-category">R</div>
+    <div class="quarto-category">Raster</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    Creación, importación y exportación de archivos raster
+  </div>
 </div>
 
 
+<div class="quarto-title-meta">
 
-<div class="quarto-title-meta column-page-left">
-
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Daniela O </p>
+          </div>
+  </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">October 1, 2024</p>
+    </div>
+  </div>
   
     
   </div>
@@ -191,217 +201,147 @@ window.Quarto = {
 </header>
 
 
+<section id="cargar-un-raster" class="level2">
+<h2 class="anchored" data-anchor-id="cargar-un-raster">Cargar un raster</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(raster)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>dem<span class="ot">&lt;-</span> <span class="fu">raster</span> (<span class="st">"Capas/dem/DEM.tif"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dem)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># observemos las características</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>dem</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>class      : RasterLayer 
+dimensions : 5705, 6368, 36329440  (nrow, ncol, ncell)
+resolution : 12.5, 12.5  (x, y)
+extent     : 528403.3, 608003.3, 670363, 741675.5  (xmin, xmax, ymin, ymax)
+crs        : +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs 
+source     : DEM.tif 
+names      : DEM </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># para ver los valores maximos y minimos </span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(dem)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         DEM
+Min.      86
+1st Qu.  130
+Median   163
+3rd Qu.  293
+Max.    1405
+NA's       0</code></pre>
+</div>
+</div>
+</section>
+<section id="como-crear-un-stack" class="level2">
+<h2 class="anchored" data-anchor-id="como-crear-un-stack">Como crear un stack</h2>
+<p>Los stack nos permiten incluir varios raster en solo uno. Ten en cuenta que los raster tengan la misma proyección y el mismo extent</p>
+<section id="forma-uno" class="level3">
+<h3 class="anchored" data-anchor-id="forma-uno">Forma uno</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cargar cada raster de forma independiente</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>bio1<span class="ot">&lt;-</span><span class="fu">raster</span>(<span class="st">"Capas/bio1.tif"</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>bio2<span class="ot">&lt;-</span><span class="fu">raster</span>(<span class="st">"Capas/bio2.tif"</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>bio3<span class="ot">&lt;-</span><span class="fu">raster</span>(<span class="st">"Capas/bio3.tif"</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>bio4<span class="ot">&lt;-</span><span class="fu">raster</span>(<span class="st">"Capas/bio4.tif"</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Crear un stack</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>bios<span class="ot">&lt;-</span><span class="fu">stack</span>(bio1, bio2, bio3, bio4)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(bios)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(bios[[<span class="dv">1</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-3-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>bio12_2<span class="ot">&lt;-</span>bios[[<span class="dv">3</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cargar todos los raster de una carpeta en un stack</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>bios19<span class="ot">&lt;-</span><span class="fu">stack</span>(<span class="fu">list.files</span>(<span class="at">path=</span><span class="st">"Capas/"</span>, <span class="at">pattern =</span> <span class="st">".tif"</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>bios19</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>class      : RasterStack 
+dimensions : 242, 180, 43560, 19  (nrow, ncol, ncell, nlayers)
+resolution : 0.0833, 0.0833  (x, y)
+extent     : -81.8726, -66.8786, -4.2123, 15.9463  (xmin, xmax, ymin, ymax)
+crs        : +proj=longlat +datum=WGS84 +no_defs 
+names      :       bio1,      bio10,      bio11,      bio12,      bio13,      bio14,      bio15,      bio16,      bio17,      bio18,      bio19,       bio2,       bio3,       bio4,       bio5, ... 
+min values :  21.154696,  28.154696,   9.340766, 268.150604,  86.975685,   0.000000,  11.293017, 171.408234,   0.000000,  23.518999,   0.000000,  51.086884,  67.000000, 140.313873,  74.712906, ... 
+max values :  290.19424,  301.67709,  282.98999, 9912.64258, 1049.16125,  653.17615,  115.61718, 3034.19897, 2161.18262, 2428.07837, 2785.71558,  131.88080,   93.79576, 1193.03503,  362.45981, ... </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(bios19)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="reproyectar-un-raster" class="level2">
+<h2 class="anchored" data-anchor-id="reproyectar-un-raster">Reproyectar un raster</h2>
+<p>Se puede hacer para un raster o un stack</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>b1<span class="ot">&lt;-</span> <span class="fu">raster</span>(<span class="st">"Capas/bio1.tif"</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># reproyectar un solo raster</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>b1utm<span class="ot">&lt;-</span><span class="fu">projectRaster</span>(b1, <span class="at">crs=</span><span class="st">"+proj=utm +zone=18 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"</span>)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>b1utm</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>class      : RasterLayer 
+dimensions : 254, 191, 48514  (nrow, ncol, ncell)
+resolution : 9220, 9210  (x, y)
+extent     : -312700.6, 1448319, -513239.8, 1826100  (xmin, xmax, ymin, ymax)
+crs        : +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs 
+source     : memory
+names      : bio1 
+values     : 30.55129, 290.1524  (min, max)</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>b2<span class="ot">&lt;-</span><span class="fu">raster</span>(<span class="st">"Capas/bio2.tif"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creo stack</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>b12<span class="ot">&lt;-</span><span class="fu">stack</span>(b1, b2)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Rreproyectar un stack</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>b12_utm<span class="ot">&lt;-</span><span class="fu">projectRaster</span>(b12, <span class="at">crs=</span><span class="st">"+proj=utm +zone=18 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"</span>)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>b12_utm</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>class      : RasterBrick 
+dimensions : 254, 191, 48514, 2  (nrow, ncol, ncell, nlayers)
+resolution : 9220, 9210  (x, y)
+extent     : -312700.6, 1448319, -513239.8, 1826100  (xmin, xmax, ymin, ymax)
+crs        : +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs 
+source     : memory
+names      :     bio1,     bio2 
+min values : 30.55129, 51.27524 
+max values : 290.1524, 131.3687 </code></pre>
+</div>
+</div>
 
 
+</section>
 
-
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="SIG,R,Raster" data-listing-date-sort="1727758800000" data-listing-file-modified-sort="1727804710272" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="105">
-<div class="thumbnail">
-<p><a href="./posts/SIG_raster/index.html" class="no-external"></a></p><a href="./posts/SIG_raster/index.html" class="no-external">
-<p class="card-img-top"><img src="posts\SIG_raster\index_files\figure-html\unnamed-chunk-1-1.png"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/SIG_raster/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/SIG_raster/index.html" class="no-external">Archivos raster en R</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/SIG_raster/index.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="./posts/SIG_raster/index.html" class="no-external">Creación, importación y exportación de archivos raster</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/SIG_raster/index.html" class="no-external">
-<div class="listing-date">
-Oct 1, 2024
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="SIG,R" data-listing-date-sort="1727672400000" data-listing-file-modified-sort="1727800131865" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="60">
-<div class="thumbnail">
-<p><a href="./posts/Datos_UICN/index.html" class="no-external"></a></p><a href="./posts/Datos_UICN/index.html" class="no-external">
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
-</a><p><a href="./posts/Datos_UICN/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/Datos_UICN/index.html" class="no-external">Descarga de datos del UICN</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/Datos_UICN/index.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="./posts/Datos_UICN/index.html" class="no-external">Descarga de datos de UICN</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/Datos_UICN/index.html" class="no-external">
-<div class="listing-date">
-Sep 30, 2024
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-categories="SIG,R" data-listing-date-sort="1726549200000" data-listing-file-modified-sort="1727705969867" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="199">
-<div class="thumbnail">
-<p><a href="./posts/datos_GBIF/index.html" class="no-external"></a></p><a href="./posts/datos_GBIF/index.html" class="no-external">
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
-</a><p><a href="./posts/datos_GBIF/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/datos_GBIF/index.html" class="no-external">Descarga de datos del GBIF</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/datos_GBIF/index.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="./posts/datos_GBIF/index.html" class="no-external">Descargando datos</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/datos_GBIF/index.html" class="no-external">
-<div class="listing-date">
-Sep 17, 2024
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="3" data-categories="SIG,R" data-listing-date-sort="1722142800000" data-listing-file-modified-sort="1726524098250" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="9" data-listing-word-count-sort="1725">
-<div class="thumbnail">
-<p><a href="./posts/SIG-r-part2_vector/index.html" class="no-external"></a></p><a href="./posts/SIG-r-part2_vector/index.html" class="no-external">
-<p><img src="./posts/SIG-r-part2_vector/vectors.png" class="thumbnail-image"></p>
-</a><p><a href="./posts/SIG-r-part2_vector/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/SIG-r-part2_vector/index.html" class="no-external">SIG con R: Vectores part 2</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/SIG-r-part2_vector/index.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="./posts/SIG-r-part2_vector/index.html" class="no-external">Apuntes de la escuela ambiental</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/SIG-r-part2_vector/index.html" class="no-external">
-<div class="listing-date">
-Jul 28, 2024
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="4" data-categories="SIG,R" data-listing-date-sort="1722056400000" data-listing-file-modified-sort="1722137813603" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="307">
-<div class="thumbnail">
-<p><a href="./posts/SIG-con-R/index.html" class="no-external"></a></p><a href="./posts/SIG-con-R/index.html" class="no-external">
-<p><img src="./posts/SIG-con-R/sig1.png" class="thumbnail-image"></p>
-</a><p><a href="./posts/SIG-con-R/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/SIG-con-R/index.html" class="no-external">SIG con R: Vectores part 1</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/SIG-con-R/index.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="./posts/SIG-con-R/index.html" class="no-external">Apuntes de la escuela ambiental</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/SIG-con-R/index.html" class="no-external">
-<div class="listing-date">
-Jul 27, 2024
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="5" data-categories="data,code,Tidyverse" data-listing-date-sort="1721883600000" data-listing-file-modified-sort="1722118426729" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="30">
-<div class="thumbnail">
-<p><a href="./posts/Limpieza_manipulacion_data/index.html" class="no-external"></a></p><a href="./posts/Limpieza_manipulacion_data/index.html" class="no-external">
-<p><img src="./posts/Limpieza_manipulacion_data/limpiar-db.png" class="thumbnail-image"></p>
-</a><p><a href="./posts/Limpieza_manipulacion_data/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/Limpieza_manipulacion_data/index.html" class="no-external">Limpieza y manipulación de base de datos</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/Limpieza_manipulacion_data/index.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="./posts/Limpieza_manipulacion_data/index.html" class="no-external">limpiando y manipulando datos con tidyverse y otras</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/Limpieza_manipulacion_data/index.html" class="no-external">
-<div class="listing-date">
-Jul 25, 2024
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="6" data-categories="SDM,Modelacion" data-listing-date-sort="1718168400000" data-listing-file-modified-sort="1722118381387" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="243">
-<div class="thumbnail">
-<p><a href="./posts/Modelo-distribucion-especies/index.html" class="no-external"></a></p><a href="./posts/Modelo-distribucion-especies/index.html" class="no-external">
-<p><img src="./posts/Modelo-distribucion-especies/concept.jpg" class="thumbnail-image"></p>
-</a><p><a href="./posts/Modelo-distribucion-especies/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/Modelo-distribucion-especies/index.html" class="no-external">Modelos de Distribución de Especies (SDM) en R</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/Modelo-distribucion-especies/index.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="./posts/Modelo-distribucion-especies/index.html" class="no-external">Notas del curso de Udemy por Fabio Castro</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/Modelo-distribucion-especies/index.html" class="no-external">
-<div class="listing-date">
-Jun 12, 2024
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="7" data-categories="Github,Git" data-listing-date-sort="1716181200000" data-listing-file-modified-sort="1722118340695" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="100">
-<div class="thumbnail">
-<p><a href="./posts/vincular_git/index.html" class="no-external"></a></p><a href="./posts/vincular_git/index.html" class="no-external">
-<p class="card-img-top"><img src="posts\vincular_git\interfaz_git.jpg"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/vincular_git/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/vincular_git/index.html" class="no-external">Vinculando Rstudio con Github y Git</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/vincular_git/index.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="./posts/vincular_git/index.html" class="no-external">Vincular Rstudio con Github mediante Git</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/vincular_git/index.html" class="no-external">
-<div class="listing-date">
-May 20, 2024
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
