@@ -59,4 +59,50 @@ glimpse(occ_depu)
 # write.csv2(occ_depu, "obs_mamigeros.csv")
 ```
 
+```{r}
+# datos de herpetos 
+if(!require(rgbif)) {
+  install.packages("rgbif")
+}
+library(rgbif)
+
+# Parámetros de búsqueda
+taxon_key <- name_backbone(name="Reptilia")$usageKey # Buscar el código del taxón Mammalia
+country_code <- "CO" # Código ISO para Colombia
+department <- "Magdalena" # Departamento Magdalena
+
+# Realizar la búsqueda de datos
+occ_data <- occ_search(
+  taxonKey = taxon_key, 
+  country = country_code, 
+  stateProvince = department, 
+  hasCoordinate = TRUE,  # Filtrar solo registros con coordenadas
+  limit = 2000 # Límite de registros
+)
+
+# Ver los primeros resultados
+head(occ_data$data)
+
+```
+
+```{r}
+occ_reptilia<- data.frame(occ_data$data)
+#view(occ_reptilia)
+
+occ_depu_r<- occ_reptilia |> select(-c(7,8,9,10:13,14,17:24,36:58,60:101))
+
+glimpse(occ_depu_r)
+
+occ_depu_r$class <- as.factor(occ_depu_r$class)
+
+# Ver los niveles de la variable categórica "class"
+nombres_categorias <- levels(occ_depu_r$class)
+print(nombres_categorias)
+
+occ_r <- occ_depu_r |> filter(class == c("Amphibia", "Mammalia" , "Squamata"))
+
+# view(occ_r)
+
+# write.csv2(occ_r, "obs_reptilia.csv")
+```
 

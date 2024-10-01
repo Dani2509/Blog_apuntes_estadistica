@@ -1,0 +1,78 @@
+---
+title: "Archivos raster en R"
+description: "Creación, importación y exportación de archivos raster"
+author: "Daniela O"
+categories: [SIG, R, Raster]
+date: 2024-10-01
+toc-expand: true
+execute: 
+  warning: false
+  message: false
+---
+
+## Cargar un raster
+
+```{r}
+library(raster)
+dem<- raster ("Capas/dem/DEM.tif")
+plot(dem)
+```
+```{r}
+# observemos las características
+dem
+
+# para ver los valores maximos y minimos 
+summary(dem)
+```
+## Como crear un stack
+
+Los stack nos permiten incluir varios raster en solo uno. Ten en cuenta que los raster tengan la misma proyección y el mismo extent
+
+### Forma uno
+
+```{r}
+# Cargar cada raster de forma independiente
+bio1<-raster("Capas/bio1.tif")
+bio2<-raster("Capas/bio2.tif")
+bio3<-raster("Capas/bio3.tif")
+bio4<-raster("Capas/bio4.tif")
+
+# Crear un stack
+bios<-stack(bio1, bio2, bio3, bio4)
+plot(bios)
+plot(bios[[1]])
+bio12_2<-bios[[3]]
+
+```
+
+```{r}
+# Cargar todos los raster de una carpeta en un stack
+bios19<-stack(list.files(path="Capas/", pattern = ".tif", full.names = TRUE))
+bios19
+plot(bios19)
+```
+## Reproyectar un raster
+
+Se puede hacer para un raster o un stack
+
+```{r}
+b1<- raster("Capas/bio1.tif")
+
+# reproyectar un solo raster
+b1utm<-projectRaster(b1, crs="+proj=utm +zone=18 +ellps=WGS84 +datum=WGS84 +units=m +no_defs")
+b1utm
+
+b2<-raster("Capas/bio2.tif")
+
+```
+
+```{r}
+# Creo stack
+b12<-stack(b1, b2)
+
+# Rreproyectar un stack
+b12_utm<-projectRaster(b12, crs="+proj=utm +zone=18 +ellps=WGS84 +datum=WGS84 +units=m +no_defs")
+b12_utm
+
+```
+

@@ -1,0 +1,61 @@
+---
+title: "Descarga de datos del UICN"
+description: "Descarga de datos de UICN"
+author: "Daniela O"
+categories: [SIG, R]
+date: 2024-09-30
+toc-expand: true
+---
+
+Descarga de datos del UICN
+
+```{r}
+#| label: librerias
+
+# liberias requeridas
+library(taxize) # acceder a datos de UICN
+library(tidyverse)
+library(readxl)
+library(rredlist)
+library(writexl)
+library(httr)
+
+```
+
+```{r}
+#| label: open data
+
+data<- read_excel("especies.xlsx")
+head(data)
+glimpse(data)
+
+```
+```{r}
+sp.list<- data |> distinct(Scientific.name)
+sp.list
+```
+```{r}
+# obteniendo datos UICN
+
+API <- "MuXfvwppcPU8NwRvszhKskays14Ld4q66cCD" #https://apiv3.iucnredlist.org/, provide IUCN acess
+
+IUCN.list <- iucn_summary(sp.list$Scientific.name, distr_detail= TRUE, key =API)
+
+```
+
+```{r}
+# reacomodo de los datos 
+iucn_status(IUCN.list)
+
+# data a base de datos
+resultado_iucn<-iucn_status(IUCN.list) |> as.data.frame()
+
+resultado_completo <- data.frame(Especie = sp.list$Scientific.name, Status = resultado_iucn)
+# view(resultado_completo)
+
+# para descargar los datos
+#write_xlsx(resultado_completo, "resultado.xlsx")
+
+
+```
+
