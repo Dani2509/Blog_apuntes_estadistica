@@ -1,0 +1,108 @@
+---
+title: "Generalidades del paquete Terra"
+description: "Consideraciones de la library(terra) "
+author: "Daniela O"
+categories: [SIG, R, Terra, Map]
+date: 2025-01-25
+toc-expand: true
+editor_options: 
+  chunk_output_type: console
+---
+
+El paquete geodata permite descargar shapes de diferentes paises.
+
+```{r}
+# install.packages("geodata")
+library(geodata)
+# install.packages("terra")
+library(terra)
+
+# para encontrar el shape de un pais por codigo
+# country_codes() 
+
+```
+
+```{r}
+# iniciamos la busquedad del shape del pais
+
+# col_0 <- gadm("colombia", level = 0, version = "latest", resolution = 2, path = getwd())
+
+# plot(col_0)
+```
+
+En `path` se selecciona la ruta en donde queremos guardar el shape. En `resolution 2` es baja mientrras que `resolution 1` es alta
+
+```{r}
+#install.packages("sf")
+library(sf)
+#col_sf <- st_as_sf(col_0)
+
+```
+
+```{r}
+#| eval: false
+
+# Guardar con opcion de sf
+write_sf(col_sf, "posts/Paquete_Terra/Colombia_LO.shp")
+
+# Guardar con opcion de terra
+writeVector(col_sf, "posts/Paquete_Terra/Colombia_LO.shp")
+```
+
+Ahora podemos visualizar el shape con el parquete `sf` o `terra`
+
+```{r}
+shp1 <- sf::read_sf("COL_adm1.shp") #<1>
+shp2 <- terra::vect("COL_adm1.shp")
+```
+
+1.  Se genera un shape con una tabla de atributos
+
+Para graficar empleamos el comando `plot()` pero este te grafica un mapa por cada columna que tenga el shape. Entonces para eso especificamos la columna que queremos
+
+```{r}
+# especificando la columna
+plot(shp1[,4]) # <1>
+```
+
+1.  para el grafico con sf tienes que especificar el numero de columna mientras que con terra si puedes añadir el nombre de la columna
+
+```{r}
+plot(shp2, "NAME_1") # shape abierto con terra
+```
+
+## Manipulación de vectores 😁
+
+```{r}
+library(dplyr)
+
+# opción 1 
+arauca<- filter(shp1, NAME_1 == "Arauca")
+plot(arauca[,1])
+```
+
+```{r}
+# opción 2: funciona muy bien para los otros dos tipos
+
+Boyaca <- subset(shp2, shp2$NAME_1 == "Boyacá")
+plot(Boyaca)
+```
+
+### Verificar sistemas de coordenadas de referencias
+
+```{r}
+crs(shp2)
+shp2 # Tambien la coordenada se puede consultar con esta funcion 
+```
+
+### Reproyectar sistema con paquete terra y sf
+
+```{r}
+shp1.b <- sf::st_transform(shp1, crs = 32618)
+
+shp2.b <- terra::project(shp2, "+proj=utm +zone=18 +ellps=clrk66 +units=m +no_defs +type=crs" )
+```
+
+::: callout-note
+En terra el sistema de coordenada debe especificarse como `Proj4,` mientras que sf es con EPSG 👁️
+:::
