@@ -1,0 +1,68 @@
+---
+title: "Operaciones entre vectores y raster"
+description: "Aprendiendo a cortar un raster, estadisticas zonales, extraer información de puntos, etc "
+author: "Daniela O"
+categories: [SIG, R, Terra, Map]
+date: 2025-01-25
+toc-expand: true
+editor_options: 
+  chunk_output_type: console
+---
+
+Vamos a iniciar...😜
+
+## Cortar un raster con un vector 
+
+```{r}
+#| label: librerias necesarias
+
+library(raster)
+library(sf)
+```
+
+```{r}
+#| label: cargar recursos
+#| eval: false
+
+# cargar las capas 
+
+col_shp <- read_sf("Colombia_LO.shp")
+bio <- raster("DEM.tif")
+plot(bio)
+```
+
+```{r}
+#| label: cortar con crop
+#| eval: false
+# cortando shape con raster
+
+b1 <- crop(bio, col_shp)
+```
+
+Se coloca primero la capa raster luego el shape. Crop lo que hace es que recorta el raster con la silueta de un cuadrado
+
+```{r}
+#| label: cortar
+#| eval: false
+# cortando shape con raster
+
+b2 <- mask(b1, col_shp)
+           # raster, poligono 
+```
+
+```{r}
+#| eval: false
+# Juntando las funciones para que sea un solo comando
+
+cortado <- bio |> crop(col_shp) |> mask(col_shp)
+```
+
+::: callout-important
+## Tener en cuenta
+
+Se aconseja utilizar primero la función `crop` para luego ejecutar `mask`
+:::
+
+[**Para cortar un stack se aplica el mismo proceso anterior.**]{style="color:red;"}
+
+

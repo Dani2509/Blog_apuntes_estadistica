@@ -1,0 +1,15 @@
+{
+  "hash": "7ba8e97668115e5f29a0d46be349b0c9",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Operaciones entre vectores y raster\"\ndescription: \"Aprendiendo a cortar un raster, estadisticas zonales, extraer información de puntos, etc \"\nauthor: \"Daniela O\"\ncategories: [SIG, R, Terra, Map]\ndate: 2025-01-25\ntoc-expand: true\neditor_options: \n  chunk_output_type: console\n---\n\n\n\nVamos a iniciar...😜\n\n## Cortar un raster con un vector \n\n\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(raster)\nlibrary(sf)\n```\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\n# cargar las capas \n\ncol_shp <- read_sf(\"Colombia_LO.shp\")\nbio <- raster(\"DEM.tif\")\nplot(bio)\n```\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\n# cortando shape con raster\n\nb1 <- crop(bio, col_shp)\n```\n:::\n\n\n\nSe coloca primero la capa raster luego el shape. Crop lo que hace es que recorta el raster con la silueta de un cuadrado\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\n# cortando shape con raster\n\nb2 <- mask(b1, col_shp)\n           # raster, poligono \n```\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\n# Juntando las funciones para que sea un solo comando\n\ncortado <- bio |> crop(col_shp) |> mask(col_shp)\n```\n:::\n\n\n\n::: callout-important\n## Tener en cuenta\n\nSe aconseja utilizar primero la función `crop` para luego ejecutar `mask`\n:::\n\n[**Para cortar un stack se aplica el mismo proceso anterior.**]{style=\"color:red;\"}\n\n\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

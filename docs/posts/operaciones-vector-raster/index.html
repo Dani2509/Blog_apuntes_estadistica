@@ -8,9 +8,9 @@
 
 <meta name="author" content="Daniela O">
 <meta name="dcterms.date" content="2025-01-25">
-<meta name="description" content="Consideraciones de la library(terra)">
+<meta name="description" content="Aprendiendo a cortar un raster, estadisticas zonales, extraer información de puntos, etc">
 
-<title>Generalidades del paquete Terra –  Blog de apuntes</title>
+<title>Operaciones entre vectores y raster –  Blog de apuntes</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -148,11 +148,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#manipulación-de-vectores" id="toc-manipulación-de-vectores" class="nav-link active" data-scroll-target="#manipulación-de-vectores">Manipulación de vectores 😁</a>
-  <ul class="collapse">
-  <li><a href="#verificar-sistemas-de-coordenadas-de-referencias" id="toc-verificar-sistemas-de-coordenadas-de-referencias" class="nav-link" data-scroll-target="#verificar-sistemas-de-coordenadas-de-referencias">Verificar sistemas de coordenadas de referencias</a></li>
-  <li><a href="#reproyectar-sistema-con-paquete-terra-y-sf" id="toc-reproyectar-sistema-con-paquete-terra-y-sf" class="nav-link" data-scroll-target="#reproyectar-sistema-con-paquete-terra-y-sf">Reproyectar sistema con paquete terra y sf</a></li>
-  </ul></li>
+  <li><a href="#cortar-un-raster-con-un-vector" id="toc-cortar-un-raster-con-un-vector" class="nav-link active" data-scroll-target="#cortar-un-raster-con-un-vector">Cortar un raster con un vector</a></li>
   </ul>
 </nav>
     </div>
@@ -161,7 +157,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Generalidades del paquete Terra</h1>
+<h1 class="title">Operaciones entre vectores y raster</h1>
   <div class="quarto-categories">
     <div class="quarto-category">SIG</div>
     <div class="quarto-category">R</div>
@@ -172,7 +168,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div>
   <div class="description">
-    Consideraciones de la library(terra)
+    Aprendiendo a cortar un raster, estadisticas zonales, extraer información de puntos, etc
   </div>
 </div>
 
@@ -201,159 +197,53 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>El paquete geodata permite descargar shapes de diferentes paises.</p>
+<p>Vamos a iniciar…😜</p>
+<section id="cortar-un-raster-con-un-vector" class="level2">
+<h2 class="anchored" data-anchor-id="cortar-un-raster-con-un-vector">Cortar un raster con un vector</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("geodata")</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(geodata)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("terra")</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(terra)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># para encontrar el shape de un pais por codigo</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># country_codes() </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(raster)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># iniciamos la busquedad del shape del pais</span></span>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># cargar las capas </span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># col_0 &lt;- gadm("colombia", level = 0, version = "latest", resolution = 2, path = getwd())</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># plot(col_0)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>En <code>path</code> se selecciona la ruta en donde queremos guardar el shape. En <code>resolution 2</code> es baja mientrras que <code>resolution 1</code> es alta</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("sf")</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#col_sf &lt;- st_as_sf(col_0)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>col_shp <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">"Colombia_LO.shp"</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>bio <span class="ot">&lt;-</span> <span class="fu">raster</span>(<span class="st">"DEM.tif"</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(bio)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Guardar con opcion de sf</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">write_sf</span>(col_sf, <span class="st">"posts/Paquete_Terra/Colombia_LO.shp"</span>)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Guardar con opcion de terra</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">writeVector</span>(col_sf, <span class="st">"posts/Paquete_Terra/Colombia_LO.shp"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># cortando shape con raster</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>b1 <span class="ot">&lt;-</span> <span class="fu">crop</span>(bio, col_shp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Ahora podemos visualizar el shape con el parquete <code>sf</code> o <code>terra</code></p>
+<p>Se coloca primero la capa raster luego el shape. Crop lo que hace es que recorta el raster con la silueta de un cuadrado</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-5"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><a class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-5-1" class="code-annotation-target"><a href="#annotated-cell-5-1" aria-hidden="true" tabindex="-1"></a>shp1 <span class="ot">&lt;-</span> sf<span class="sc">::</span><span class="fu">read_sf</span>(<span class="st">"COL_adm1.shp"</span>)</span>
-<span id="annotated-cell-5-2"><a href="#annotated-cell-5-2" aria-hidden="true" tabindex="-1"></a>shp2 <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">vect</span>(<span class="st">"COL_adm1.shp"</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-annotation">
-<dl class="code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-5" data-target-annotation="1">1</dt>
-<dd>
-<span data-code-cell="annotated-cell-5" data-code-lines="1" data-code-annotation="1">Se genera un shape con una tabla de atributos</span>
-</dd>
-</dl>
-</div>
-</div>
-<p>Para graficar empleamos el comando <code>plot()</code> pero este te gráfica un mapa por cada columna que tenga el shape. Entonces para eso especificamos la columna que queremos</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-6"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-6-1"><a href="#annotated-cell-6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># especificando la columna</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-6-2" class="code-annotation-target"><a href="#annotated-cell-6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(shp1[,<span class="dv">4</span>])</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-annotation">
-<dl class="code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-6" data-target-annotation="1">1</dt>
-<dd>
-<span data-code-cell="annotated-cell-6" data-code-lines="2" data-code-annotation="1">para el gráfico con sf tienes que especificar el numero de columna mientras que con terra si puedes añadir el nombre de la columna</span>
-</dd>
-</dl>
-</div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># cortando shape con raster</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>b2 <span class="ot">&lt;-</span> <span class="fu">mask</span>(b1, col_shp)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>           <span class="co"># raster, poligono </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(shp2, <span class="st">"NAME_1"</span>) <span class="co"># shape abierto con terra</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Juntando las funciones para que sea un solo comando</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>cortado <span class="ot">&lt;-</span> bio <span class="sc">|&gt;</span> <span class="fu">crop</span>(col_shp) <span class="sc">|&gt;</span> <span class="fu">mask</span>(col_shp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
-</div>
-<section id="manipulación-de-vectores" class="level2">
-<h2 class="anchored" data-anchor-id="manipulación-de-vectores">Manipulación de vectores 😁</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># opción 1 </span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>arauca<span class="ot">&lt;-</span> <span class="fu">filter</span>(shp1, NAME_1 <span class="sc">==</span> <span class="st">"Arauca"</span>)</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(arauca[,<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># opción 2: funciona muy bien para los otros dos tipos</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>Boyaca <span class="ot">&lt;-</span> <span class="fu">subset</span>(shp2, shp2<span class="sc">$</span>NAME_1 <span class="sc">==</span> <span class="st">"Boyacá"</span>)</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Boyaca)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<section id="verificar-sistemas-de-coordenadas-de-referencias" class="level3">
-<h3 class="anchored" data-anchor-id="verificar-sistemas-de-coordenadas-de-referencias">Verificar sistemas de coordenadas de referencias</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">crs</span>(shp2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "GEOGCRS[\"WGS 84\",\n    DATUM[\"World Geodetic System 1984\",\n        ELLIPSOID[\"WGS 84\",6378137,298.257223563,\n            LENGTHUNIT[\"metre\",1]]],\n    PRIMEM[\"Greenwich\",0,\n        ANGLEUNIT[\"degree\",0.0174532925199433]],\n    CS[ellipsoidal,2],\n        AXIS[\"geodetic latitude (Lat)\",north,\n            ORDER[1],\n            ANGLEUNIT[\"degree\",0.0174532925199433]],\n        AXIS[\"geodetic longitude (Lon)\",east,\n            ORDER[2],\n            ANGLEUNIT[\"degree\",0.0174532925199433]],\n    ID[\"EPSG\",4326]]"</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>shp2 <span class="co"># También la coordenada se puede consultar con esta función </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code> class       : SpatVector 
- geometry    : polygons 
- dimensions  : 32, 9  (geometries, attributes)
- extent      : -81.84153, -66.87033, -4.228429, 15.91247  (xmin, xmax, ymin, ymax)
- source      : COL_adm1.shp
- coord. ref. : lon/lat WGS 84 (EPSG:4326) 
- names       :  ID_0   ISO   NAME_0  ID_1    NAME_1       TYPE_1   ENGTYPE_1
- type        : &lt;num&gt; &lt;chr&gt;    &lt;chr&gt; &lt;num&gt;     &lt;chr&gt;        &lt;chr&gt;       &lt;chr&gt;
- values      :    53   COL Colombia     1  Amazonas    Comisaría Commissiary
-                  53   COL Colombia     2 Antioquia Departamento  Department
-                  53   COL Colombia     3    Arauca  Intendencia  Intendancy
- NL_NAME_1 VARNAME_1
-     &lt;chr&gt;     &lt;chr&gt;
-        NA        NA
-        NA        NA
-        NA        NA</code></pre>
-</div>
-</div>
-</section>
-<section id="reproyectar-sistema-con-paquete-terra-y-sf" class="level3">
-<h3 class="anchored" data-anchor-id="reproyectar-sistema-con-paquete-terra-y-sf">Reproyectar sistema con paquete terra y sf</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>shp1.b <span class="ot">&lt;-</span> sf<span class="sc">::</span><span class="fu">st_transform</span>(shp1, <span class="at">crs =</span> <span class="dv">32618</span>)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>shp2.b <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">project</span>(shp2, <span class="st">"+proj=utm +zone=18 +ellps=clrk66 +units=m +no_defs +type=crs"</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Note
+Tener en cuenta
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>En terra el sistema de coordenada debe especificarse como <code>Proj4,</code> mientras que sf es con EPSG 👁️</p>
+<p>Se aconseja utilizar primero la función <code>crop</code> para luego ejecutar <code>mask</code></p>
 </div>
 </div>
+<p><span style="color:red;"><strong>Para cortar un stack se aplica el mismo proceso anterior.</strong></span></p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
