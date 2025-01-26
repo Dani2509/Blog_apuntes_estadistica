@@ -118,4 +118,35 @@ data_final <- cbind(puntos, ta_sp)
 glimpse(data_final)
 ```
 
-## Convertir raster a shape
+# Estadísticas zonales
+
+Determinar cálculos de media, varianza de un raster que se encuentra dentro de un área de estudio.
+
+```{r}
+#| eval: false
+
+library(sf)
+library(raster)
+library(geodata)
+#install.packages("exactextractr")
+library(exactextractr)
+```
+
+```{r}
+#| eval: false
+
+# obteniendo el raster
+pob <- geodata:: population(year = 2020, res = 2.5, path = "population/")
+
+# obteniendo el shape 
+ec <- geodata::gadm(country = "Ecuador", level = 1, path = "polig_ecuador/") |> st_as_sf()
+
+```
+
+```{r}
+#| eval: false
+
+zonal_stats <- exact_extract(pob, ec, fun= c("sum", "variance"), progress= TRUE) # progress muestra una barra de progreso en la consola
+
+zonal_stats_df <- cbind(ec, zonal_stats)
+```
