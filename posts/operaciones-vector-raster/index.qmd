@@ -11,7 +11,7 @@ editor_options:
 
 Vamos a iniciar...😜
 
-## Cortar un raster con un vector 
+## Cortar un raster con un vector
 
 ```{r}
 #| label: librerias necesarias
@@ -22,39 +22,41 @@ library(sf)
 
 ```{r}
 #| label: cargar recursos
-#| eval: false
 
 # cargar las capas 
 
-col_shp <- read_sf("Colombia_LO.shp")
-bio <- raster("DEM.tif")
-plot(bio)
+col_shp <- read_sf("data_0.shp")
+bio_1 <- raster("bio/bio2.tif")
+bio_1
+plot(bio_1)
 ```
 
 ```{r}
 #| label: cortar con crop
-#| eval: false
+
 # cortando shape con raster
 
-b1 <- crop(bio, col_shp)
+b1 <- crop(bio_1, col_shp)
+plot(b1)
 ```
 
 Se coloca primero la capa raster luego el shape. Crop lo que hace es que recorta el raster con la silueta de un cuadrado
 
 ```{r}
 #| label: cortar
-#| eval: false
+
 # cortando shape con raster
 
 b2 <- mask(b1, col_shp)
            # raster, poligono 
+plot(b2)
 ```
 
 ```{r}
-#| eval: false
 # Juntando las funciones para que sea un solo comando
 
-cortado <- bio |> crop(col_shp) |> mask(col_shp)
+cortado <- bio_1 |> crop(col_shp) |> mask(col_shp)
+plot(cortado)
 ```
 
 ::: callout-important
@@ -65,4 +67,53 @@ Se aconseja utilizar primero la función `crop` para luego ejecutar `mask`
 
 [**Para cortar un stack se aplica el mismo proceso anterior.**]{style="color:red;"}
 
+## Raster a puntos
 
+Entre mayor resolución tenga el raster mayor cantidad de puntos se va a tener.
+
+```{r}
+# librerias
+library(raster)
+library(rgdal)
+library(sf)
+```
+
+```{r}
+# extraer puntos 
+ext_bio <- rasterToPoints(cortado) |> as.data.frame()
+
+library(ggplot2)
+
+ggplot() + geom_density(data= ext_bio, aes(x=bio2), col="black") + theme_bw()
+```
+
+# Extraer información de raster a puntos
+
+Esto sirve para cuando buscamos extraer una información de algunos puntos en función de un aster que contenga una variable.
+
+```{r}
+#| message: false
+#| warning: false
+
+library(tidyverse)
+library(raster)
+library(dplyr)
+bios1 <- raster("wc5/bio1.bil") # Temp promedio anual 
+puntos <- read.csv("Registros.csv", header = TRUE)
+```
+
+```{r}
+plot(bios1)
+names(puntos)
+points(puntos[,c(7:6)])
+```
+
+```{r}
+ta_sp <- extract(bios1, puntos[,c(7:6)])
+ta_sp
+```
+
+```{r}
+data_final <- cbind(puntos, ta_sp)
+glimpse(data_final)
+```
