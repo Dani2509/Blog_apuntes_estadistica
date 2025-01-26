@@ -117,3 +117,5 @@ ta_sp
 data_final <- cbind(puntos, ta_sp)
 glimpse(data_final)
 ```
+
+## Convertir raster a shape
