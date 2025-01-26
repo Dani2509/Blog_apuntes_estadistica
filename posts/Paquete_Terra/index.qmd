@@ -58,14 +58,14 @@ shp2 <- terra::vect("COL_adm1.shp")
 
 1.  Se genera un shape con una tabla de atributos
 
-Para graficar empleamos el comando `plot()` pero este te grafica un mapa por cada columna que tenga el shape. Entonces para eso especificamos la columna que queremos
+Para graficar empleamos el comando `plot()` pero este te gráfica un mapa por cada columna que tenga el shape. Entonces para eso especificamos la columna que queremos
 
 ```{r}
 # especificando la columna
 plot(shp1[,4]) # <1>
 ```
 
-1.  para el grafico con sf tienes que especificar el numero de columna mientras que con terra si puedes añadir el nombre de la columna
+1.  para el gráfico con sf tienes que especificar el numero de columna mientras que con terra si puedes añadir el nombre de la columna
 
 ```{r}
 plot(shp2, "NAME_1") # shape abierto con terra
@@ -92,7 +92,7 @@ plot(Boyaca)
 
 ```{r}
 crs(shp2)
-shp2 # Tambien la coordenada se puede consultar con esta funcion 
+shp2 # También la coordenada se puede consultar con esta función 
 ```
 
 ### Reproyectar sistema con paquete terra y sf
