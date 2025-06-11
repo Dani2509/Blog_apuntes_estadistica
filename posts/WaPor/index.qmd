@@ -1,0 +1,24 @@
+---
+title: "Monitoreo de productividad de tierra y agua WaPor Projects"
+author: "Daniela Ospino"
+categories: [Water, WaPor]
+date: 2025-06-11
+description: "Capacitación del proyecto WaPor"
+---
+
+## ¿ Qué es WaPor?
+
+Proyecto que busca monitorear y mejorar el uso del agua en la productividad agrícola. 
+
+La productividad del agua en agricultura mide la producción $(kg/ha)$ por unidad del agua producida $(m2/ha)$. Dentro de la ODS el uso adecuado y el saneamiento del agua se encuentra dentro del objetivo 6. Es un indicador de desempeño de monitoreo 
+
+### ¿Cómo funciona ?
+
+financiado por: 
+
+IHE (Institute for water education)
+IWMI (International water management institute)
+
+
+
+
