@@ -8,17 +8,38 @@ description: "Capacitación del proyecto WaPor"
 
 ## ¿ Qué es WaPor?
 
-Proyecto que busca monitorear y mejorar el uso del agua en la productividad agrícola. 
+Proyecto que busca monitorear y mejorar el uso del agua en la productividad agrícola.
 
-La productividad del agua en agricultura mide la producción $(kg/ha)$ por unidad del agua producida $(m2/ha)$. Dentro de la ODS el uso adecuado y el saneamiento del agua se encuentra dentro del objetivo 6. Es un indicador de desempeño de monitoreo 
+La productividad del agua en agricultura mide la producción $(kg/ha)$ por unidad del agua producida $(m2/ha)$. Dentro de la ODS el uso adecuado y el saneamiento del agua se encuentra dentro del objetivo 6. Es un indicador de desempeño de monitoreo.
 
 ### ¿Cómo funciona ?
 
-financiado por: 
+financiado por:
 
-IHE (Institute for water education)
-IWMI (International water management institute)
+-   IHE (Institute for water education)
 
+-   IWMI (International water management institute)
 
+### **Plataforma WaPOR**
 
+-   Monitoreo cada 10 días
 
+-   A nivel continental 300 m, Nacional 100 metros (solo Colombia tiene esa reslución) y subnacional 20 m . En WaPOR estas capas se encuntran de la siguiente forma:
+
+-   L1: Continental
+
+-   L2: Nacional
+
+-   L3: subnacional
+
+-   Tiene análisis Anual, mensual, decadal (decadía: cada 10 días).
+
+Variables:
+
+Productividad de agua
+
+evaporation
+
+transpiration
+
+interception
