@@ -95,7 +95,7 @@
     "href": "index.html",
     "title": "Blog",
     "section": "",
-    "text": "Operaciones entre vectores y raster\n\n\n\n\n\nAprendiendo a cortar un raster, estadisticas zonales, extraer información de puntos, etc \n\n\n\n\n\nJan 25, 2025\n\n\n\n\n\n\n\n\n\n\n\n\nGeneralidades del paquete Terra\n\n\n\n\n\nConsideraciones de la library(terra) \n\n\n\n\n\nJan 25, 2025\n\n\n\n\n\n\n\n\n\n\n\n\nArchivos raster en R\n\n\n\n\n\nCreación, importación y exportación de archivos raster\n\n\n\n\n\nOct 1, 2024\n\n\n\n\n\n\n\n\n\n\n\n\nDescarga de datos del UICN\n\n\n\n\n\nDescarga de datos de UICN\n\n\n\n\n\nSep 30, 2024\n\n\n\n\n\n\n\n\n\n\n\n\nDescarga de datos del GBIF\n\n\n\n\n\nDescargando datos\n\n\n\n\n\nSep 17, 2024\n\n\n\n\n\n\n\n\n\n\n\n\nSIG con R: Vectores part 2\n\n\n\n\n\nApuntes de la escuela ambiental\n\n\n\n\n\nJul 28, 2024\n\n\n\n\n\n\n\n\n\n\n\n\nSIG con R: Vectores part 1\n\n\n\n\n\nApuntes de la escuela ambiental\n\n\n\n\n\nJul 27, 2024\n\n\n\n\n\n\n\n\n\n\n\n\nLimpieza y manipulación de base de datos\n\n\n\n\n\nlimpiando y manipulando datos con tidyverse y otras\n\n\n\n\n\nJul 25, 2024\n\n\n\n\n\n\n\n\n\n\n\n\nModelos de Distribución de Especies (SDM) en R\n\n\n\n\n\nNotas del curso de Udemy por Fabio Castro\n\n\n\n\n\nJun 12, 2024\n\n\n\n\n\n\n\n\n\n\n\n\nVinculando Rstudio con Github y Git\n\n\n\n\n\nVincular Rstudio con Github mediante Git\n\n\n\n\n\nMay 20, 2024\n\n\n\n\n\n\nNo matching items"
+    "text": "Monitoreo de productividad de tierra y agua WaPor Projects\n\n\n\n\n\nCapacitación del proyecto WaPor\n\n\n\n\n\nJun 11, 2025\n\n\n\n\n\n\n\n\n\n\n\n\nOperaciones entre vectores y raster\n\n\n\n\n\nAprendiendo a cortar un raster, estadisticas zonales, extraer información de puntos, etc \n\n\n\n\n\nJan 25, 2025\n\n\n\n\n\n\n\n\n\n\n\n\nGeneralidades del paquete Terra\n\n\n\n\n\nConsideraciones de la library(terra) \n\n\n\n\n\nJan 25, 2025\n\n\n\n\n\n\n\n\n\n\n\n\nArchivos raster en R\n\n\n\n\n\nCreación, importación y exportación de archivos raster\n\n\n\n\n\nOct 1, 2024\n\n\n\n\n\n\n\n\n\n\n\n\nDescarga de datos del UICN\n\n\n\n\n\nDescarga de datos de UICN\n\n\n\n\n\nSep 30, 2024\n\n\n\n\n\n\n\n\n\n\n\n\nDescarga de datos del GBIF\n\n\n\n\n\nDescargando datos\n\n\n\n\n\nSep 17, 2024\n\n\n\n\n\n\n\n\n\n\n\n\nSIG con R: Vectores part 2\n\n\n\n\n\nApuntes de la escuela ambiental\n\n\n\n\n\nJul 28, 2024\n\n\n\n\n\n\n\n\n\n\n\n\nSIG con R: Vectores part 1\n\n\n\n\n\nApuntes de la escuela ambiental\n\n\n\n\n\nJul 27, 2024\n\n\n\n\n\n\n\n\n\n\n\n\nLimpieza y manipulación de base de datos\n\n\n\n\n\nlimpiando y manipulando datos con tidyverse y otras\n\n\n\n\n\nJul 25, 2024\n\n\n\n\n\n\n\n\n\n\n\n\nModelos de Distribución de Especies (SDM) en R\n\n\n\n\n\nNotas del curso de Udemy por Fabio Castro\n\n\n\n\n\nJun 12, 2024\n\n\n\n\n\n\n\n\n\n\n\n\nVinculando Rstudio con Github y Git\n\n\n\n\n\nVincular Rstudio con Github mediante Git\n\n\n\n\n\nMay 20, 2024\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/Datos_UICN/index.html",
@@ -201,5 +201,33 @@
     "title": "Operaciones entre vectores y raster",
     "section": "Cortar un raster con un vector",
     "text": "Cortar un raster con un vector\n\nlibrary(raster)\nlibrary(sf)\n\n\n# cargar las capas \n\ncol_shp &lt;- read_sf(\"Colombia_LO.shp\")\nbio &lt;- raster(\"DEM.tif\")\nplot(bio)\n\n\n# cortando shape con raster\n\nb1 &lt;- crop(bio, col_shp)\n\nSe coloca primero la capa raster luego el shape. Crop lo que hace es que recorta el raster con la silueta de un cuadrado\n\n# cortando shape con raster\n\nb2 &lt;- mask(b1, col_shp)\n           # raster, poligono \n\n\n# Juntando las funciones para que sea un solo comando\n\ncortado &lt;- bio |&gt; crop(col_shp) |&gt; mask(col_shp)\n\n\n\n\n\n\n\nTener en cuenta\n\n\n\nSe aconseja utilizar primero la función crop para luego ejecutar mask\n\n\nPara cortar un stack se aplica el mismo proceso anterior."
+  },
+  {
+    "objectID": "posts/WaPor/index.html",
+    "href": "posts/WaPor/index.html",
+    "title": "Monitoreo de productividad de tierra y agua WaPor Projects",
+    "section": "",
+    "text": "Página : https://data.apps.fao.org/wapor/?lang=es\nProyecto que busca monitorear y mejorar el uso del agua en la productividad agrícola.\nLa productividad del agua en agricultura mide la producción \\((kg/ha)\\) por unidad del agua producida \\((m2/ha)\\). Dentro de la ODS el uso adecuado y el saneamiento del agua se encuentra dentro del objetivo 6. Es un indicador de desempeño de monitoreo.\n\n\nfinanciado por:\n\nIHE (Institute for water education)\nIWMI (International water management institute)\n\n\n\n\n\nMonitoreo cada 10 días\nA nivel continental 300 m, Nacional 100 metros (solo Colombia tiene esa reslución) y subnacional 20 m . En WaPOR estas capas se encuntran de la siguiente forma:\nL1: Continental\nL2: Nacional\nL3: subnacional\nTiene análisis Anual, mensual, decadal (decadía: cada 10 días).\n\n\n\n\n\nProductividad de agua\nevaporation\ntranspiration\ninterception\n\n\n\n\nGenerando timeseries en WaPOR"
+  },
+  {
+    "objectID": "posts/WaPor/index.html#qué-es-wapor",
+    "href": "posts/WaPor/index.html#qué-es-wapor",
+    "title": "Monitoreo de productividad de tierra y agua WaPor Projects",
+    "section": "",
+    "text": "Página : https://data.apps.fao.org/wapor/?lang=es\nProyecto que busca monitorear y mejorar el uso del agua en la productividad agrícola.\nLa productividad del agua en agricultura mide la producción \\((kg/ha)\\) por unidad del agua producida \\((m2/ha)\\). Dentro de la ODS el uso adecuado y el saneamiento del agua se encuentra dentro del objetivo 6. Es un indicador de desempeño de monitoreo.\n\n\nfinanciado por:\n\nIHE (Institute for water education)\nIWMI (International water management institute)\n\n\n\n\n\nMonitoreo cada 10 días\nA nivel continental 300 m, Nacional 100 metros (solo Colombia tiene esa reslución) y subnacional 20 m . En WaPOR estas capas se encuntran de la siguiente forma:\nL1: Continental\nL2: Nacional\nL3: subnacional\nTiene análisis Anual, mensual, decadal (decadía: cada 10 días).\n\n\n\n\n\nProductividad de agua\nevaporation\ntranspiration\ninterception\n\n\n\n\nGenerando timeseries en WaPOR"
+  },
+  {
+    "objectID": "posts/WaPor/index.html#wapor-desde-google-colab-con-python",
+    "href": "posts/WaPor/index.html#wapor-desde-google-colab-con-python",
+    "title": "Monitoreo de productividad de tierra y agua WaPor Projects",
+    "section": "WaPOR desde Google Colab con Python",
+    "text": "WaPOR desde Google Colab con Python\nRepositorio en el que se puede encontrar los códigos de Python para el Google colab: https://github.com/wateraccounting/WaPORMOOC\n\n\n\nRepositorio"
+  },
+  {
+    "objectID": "posts/WaPor/index.html#dentro-de-coolab",
+    "href": "posts/WaPor/index.html#dentro-de-coolab",
+    "title": "Monitoreo de productividad de tierra y agua WaPor Projects",
+    "section": "Dentro de Coolab",
+    "text": "Dentro de Coolab\n\n\n\n\n\n\n\n\n\n\n\nAdvertencia\n\n\n\nNo manipular la carpeta que dice sample_data"
   }
 ]

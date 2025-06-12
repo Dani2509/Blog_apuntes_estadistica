@@ -8,6 +8,8 @@ description: "Capacitación del proyecto WaPor"
 
 ## ¿ Qué es WaPor?
 
+Página : <https://data.apps.fao.org/wapor/?lang=es>
+
 Proyecto que busca monitorear y mejorar el uso del agua en la productividad agrícola.
 
 La productividad del agua en agricultura mide la producción $(kg/ha)$ por unidad del agua producida $(m2/ha)$. Dentro de la ODS el uso adecuado y el saneamiento del agua se encuentra dentro del objetivo 6. Es un indicador de desempeño de monitoreo.
@@ -34,12 +36,32 @@ financiado por:
 
 -   Tiene análisis Anual, mensual, decadal (decadía: cada 10 días).
 
-Variables:
+### Variables:
 
-Productividad de agua
+-   Productividad de agua
 
-evaporation
+-   evaporation
 
-transpiration
+-   transpiration
 
-interception
+-   interception
+
+![Generando timeseries en WaPOR](wapor-timeseries.png){fig-align="center"}
+
+## WaPOR desde Google Colab con Python 
+
+Repositorio en el que se puede encontrar los códigos de Python para el Google colab: <https://github.com/wateraccounting/WaPORMOOC>
+
+![Repositorio](repositorio.png){fig-align="center"}
+
+![](code-español.png){fig-align="center"}
+
+## Dentro de Coolab
+
+![](modificacion-code.png){fig-align="center"}
+
+::: callout-caution
+## Advertencia
+
+No manipular la carpeta que dice sample_data
+:::
